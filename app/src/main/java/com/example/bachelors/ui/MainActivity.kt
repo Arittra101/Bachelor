@@ -1,4 +1,4 @@
-package com.example.bachelors
+package com.example.bachelors.ui
 
 import androidx.navigation.NavController
 import androidx.navigation.NavGraph
@@ -9,6 +9,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.example.bachelors.R
 
 
 class MainActivity : AppCompatActivity() {
