@@ -7,6 +7,6 @@ import kotlinx.coroutines.withContext
 class HomeRepository(private val homeApi: HomeApi) {
 
     suspend fun getMessPersonalCostData() = withContext(Dispatchers.IO){
-        return@withContext homeApi.getHomeInfo("july").body()
+        return@withContext homeApi.getHomeInfo("Arittra","july").body()
     }
 }

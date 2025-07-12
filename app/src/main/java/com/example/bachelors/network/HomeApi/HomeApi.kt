@@ -13,6 +13,7 @@ interface HomeApi {
 
     @GET("echo")
     suspend fun getHomeInfo(
-        @Query("name") name: String
-    ): Response<Data>
+        @Query("name") name: String,
+        @Query("month") month: String
+    ): Response<Data?>
 }

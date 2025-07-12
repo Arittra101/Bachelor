@@ -23,9 +23,12 @@ class HomeViewModel : ViewModel() {
 
     private val homeRepository = HomeRepository(apiClient)
 
-    fun getMessPersonalCostData() = viewModelScope.launch {
+    var isLoading : MutableLiveData<Boolean> = MutableLiveData(false)
 
+    fun getMessPersonalCostData() = viewModelScope.launch {
+        isLoading.postValue(true)
         _data.value = homeRepository.getMessPersonalCostData()
+        isLoading.postValue(false)
         println("Our Data is ${_data.value}")
     }
 }

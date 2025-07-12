@@ -1,5 +1,6 @@
 package com.example.bachelors.ui
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.View
@@ -19,6 +20,7 @@ class HomeFragment : Fragment(R.layout.fragment_home_activity) {
 
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding = FragmentHomeActivityBinding.bind(view)
         super.onViewCreated(view, savedInstanceState)
@@ -36,8 +38,14 @@ class HomeFragment : Fragment(R.layout.fragment_home_activity) {
            binding.otherExpenses.text = "0.00 Tk"
            binding.totalMeal.text = data.data?.get(0)?.TotalMealInMess.toString()
 
+        }
 
-
+        viewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
+            if (isLoading) {
+                binding.progressBar.visibility = View.VISIBLE
+            } else {
+                binding.progressBar.visibility = View.GONE
+            }
         }
 
 

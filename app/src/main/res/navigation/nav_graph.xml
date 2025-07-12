@@ -3,11 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/homeActivity">
+    app:startDestination="@id/nav_home">
 
     <fragment
-        android:id="@+id/homeActivity"
+        android:id="@+id/nav_home"
         android:name="com.example.bachelors.ui.HomeFragment"
         android:label="fragment_home_activity"
         tools:layout="@layout/fragment_home_activity" />
+    <fragment
+        android:id="@+id/nav_date"
+        android:name="com.example.bachelors.ui.BlankFragment"
+        android:label="BlankFragment" />
 </navigation>

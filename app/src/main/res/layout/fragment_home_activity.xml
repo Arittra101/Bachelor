@@ -1,491 +1,512 @@
-<?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-   android:background="@drawable/upperback"
+    android:background="@drawable/upperback"
     tools:context=".ui.HomeFragment">
 
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/ds"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="@+id/guideline"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <TextView
-            android:id="@+id/hi"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/poppins"
-            android:layout_marginTop="20dp"
-            android:layout_marginStart="39dp"
-            tools:text="Hi, Ratul"
-            android:textColor="#F4E3E3"
-            android:textSize="24sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/poppins"
-            tools:text="July 17, 2024"
-            android:textStyle="bold"
-            android:textColor="#FFFFFF"
-            android:textSize="24sp"
-            app:layout_constraintStart_toStartOf="@+id/hi"
-            app:layout_constraintTop_toBottomOf="@+id/hi" />
-
-        <TextView
-            android:id="@+id/give"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@+id/date"
-            app:layout_constraintStart_toStartOf="@+id/date"
-            android:layout_marginTop="3dp"
-            android:text="Rp. 3000.00 Tk"
-            android:textStyle="bold"
-            android:fontFamily="@font/poppins"
-            android:textColor="#FFFFFF"
-            android:textSize="35sp"
-            android:letterSpacing="0.1" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@+id/give"
-            app:layout_constraintStart_toStartOf="@+id/give"
-
-            android:text="Your Given Money"
-            android:textStyle="bold"
-            android:fontFamily="@font/poppins"
-            android:textColor="#FFFFFF"
-            android:textSize="20sp" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="5dp"
-        android:background="@drawable/home_card_back"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline">
-
-        <TextView
-            android:id="@+id/crnt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="36dp"
-            android:layout_marginTop="28dp"
-            android:fontFamily="@font/poppins"
-            android:text="Your Current Status"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:letterSpacing="0.13"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/card1"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="10dp"
-            android:layout_marginTop="10dp"
-            app:cardElevation="8dp"
-            app:cardCornerRadius="16dp"
-            app:cardBackgroundColor="#FFFFFF"
-            app:layout_constraintStart_toStartOf="@+id/crnt"
-            app:layout_constraintTop_toBottomOf="@+id/crnt"
-            app:layout_constraintEnd_toStartOf="@+id/guideline3">
-
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="false"
+        android:overScrollMode="never">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/contentLayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingHorizontal="10dp"
-            android:paddingVertical="9dp">
+            android:layout_height="wrap_content">
 
-            <TextView
-                android:id="@+id/have"
+            <ProgressBar
+                android:id="@+id/progressBar"
+                style="?android:attr/progressBarStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
+                android:backgroundTint="#8C1919"
+                android:visibility="visible"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginTop="5dp"
-                android:fontFamily="@font/poppins"
-                android:textSize="14sp"
-                android:textStyle="bold"
-                android:text="You Have to Pay" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/tvhaveTOPay"
-                android:layout_width="wrap_content"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/ds"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@+id/have"
-                app:layout_constraintStart_toStartOf="parent"
+                android:minHeight="200dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
-                android:fontFamily="@font/poppins"
-                android:textSize="14sp"
-                android:textColor="#D83C30"
-                android:textStyle="bold"
-                android:text="1500 Tk" />
+                <TextView
+                    android:id="@+id/hi"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="39dp"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/poppins"
+                    android:textColor="#F4E3E3"
+                    android:textSize="24sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="Hi, Ratul" />
 
+                <TextView
+                    android:id="@+id/date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins"
+                    android:textColor="#FFFFFF"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="@+id/hi"
+                    app:layout_constraintTop_toBottomOf="@+id/hi"
+                    tools:text="July 17, 2024" />
+
+                <TextView
+                    android:id="@+id/give"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:fontFamily="@font/poppins"
+                    android:letterSpacing="0.1"
+                    android:text="Rp. 3000.00 Tk"
+                    android:textColor="#FFFFFF"
+                    android:textSize="35sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="@+id/date"
+                    app:layout_constraintTop_toBottomOf="@+id/date" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
+                    android:fontFamily="@font/poppins"
+                    android:text="Your Given Money"
+                    android:textColor="#FFFFFF"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/give"
+                    app:layout_constraintTop_toBottomOf="@+id/give" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/home_card_back"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ds"
+                app:layout_constraintBottom_toBottomOf="parent">
+
+                <TextView
+                    android:id="@+id/crnt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="36dp"
+                    android:layout_marginTop="28dp"
+                    android:fontFamily="@font/poppins"
+                    android:letterSpacing="0.13"
+                    android:text="Your Current Status"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/card1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp"
+                    app:cardBackgroundColor="#FFFFFF"
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="8dp"
+                    app:layout_constraintEnd_toStartOf="@+id/guideline3"
+                    app:layout_constraintStart_toStartOf="@+id/crnt"
+                    app:layout_constraintTop_toBottomOf="@+id/crnt">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingHorizontal="10dp"
+                        android:paddingVertical="9dp">
+
+                        <TextView
+                            android:id="@+id/have"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:fontFamily="@font/poppins"
+                            android:text="You Have to Pay"
+                            android:textSize="14sp"
+                            android:textStyle="bold"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/tvhaveTOPay"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/poppins"
+                            android:text="1500 Tk"
+                            android:textColor="#D83C30"
+                            android:textSize="14sp"
+                            android:textStyle="bold"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/have" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/card2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="36dp"
+                    app:cardBackgroundColor="#FFFFFF"
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="8dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/guideline3"
+                    app:layout_constraintTop_toTopOf="@+id/card1">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingHorizontal="10dp"
+                        android:paddingVertical="9dp">
+
+                        <TextView
+                            android:id="@+id/have1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:fontFamily="@font/poppins"
+                            android:text="Your Total Meal"
+                            android:textSize="14sp"
+                            android:textStyle="bold"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/tvTotalPerMeal"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/poppins"
+                            android:text="17 Meals"
+                            android:textColor="#1D9323"
+                            android:textSize="14sp"
+                            android:textStyle="bold"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/have1" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/card3"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="36dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginEnd="36dp"
+                    app:cardBackgroundColor="#FFFFFF"
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="8dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/card1">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingHorizontal="10dp"
+                        android:paddingVertical="9dp">
+
+                        <TextView
+                            android:id="@+id/have3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:fontFamily="@font/poppins"
+                            android:text="Your Current Cost"
+                            android:textSize="14sp"
+                            android:textStyle="bold"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/tvCurrentPerCost"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/poppins"
+                            android:text="3500 Tk"
+                            android:textColor="#1D9323"
+                            android:textSize="14sp"
+                            android:textStyle="bold"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/have3" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </androidx.cardview.widget.CardView>
+
+                <TextView
+                    android:id="@+id/crntMess"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="28dp"
+                    android:fontFamily="@font/poppins"
+                    android:letterSpacing="0.13"
+                    android:text="Mess Current Status"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="@+id/card3"
+                    app:layout_constraintTop_toBottomOf="@+id/card3" />
+
+                <ImageView
+                    android:id="@+id/elisp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="14dp"
+                    android:src="@drawable/ellipse"
+                    app:layout_constraintStart_toStartOf="@+id/crntMess"
+                    app:layout_constraintTop_toBottomOf="@id/crntMess" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/dish_1"
+                    app:layout_constraintBottom_toBottomOf="@+id/elisp"
+                    app:layout_constraintEnd_toEndOf="@+id/elisp"
+                    app:layout_constraintStart_toStartOf="@+id/elisp"
+                    app:layout_constraintTop_toTopOf="@+id/elisp" />
+
+                <TextView
+                    android:id="@+id/meal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="13dp"
+                    android:fontFamily="@font/poppins"
+                    android:text="Meal Rate"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toEndOf="@+id/elisp"
+                    app:layout_constraintTop_toTopOf="@+id/elisp" />
+
+                <TextView
+                    android:id="@+id/tmeal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins"
+                    android:text="Current Meal Rate"
+                    android:textSize="11sp"
+                    app:layout_constraintStart_toStartOf="@+id/meal"
+                    app:layout_constraintTop_toBottomOf="@+id/meal" />
+
+                <TextView
+                    android:id="@+id/mealRate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins"
+                    android:text="57.00 Tk"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="@+id/card3"
+                    app:layout_constraintTop_toTopOf="@+id/meal" />
+
+                <ImageView
+                    android:id="@+id/elisp2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="14dp"
+                    android:src="@drawable/ellipse3"
+                    app:layout_constraintStart_toStartOf="@+id/crntMess"
+                    app:layout_constraintTop_toBottomOf="@id/elisp" />
+
+                <TextView
+                    android:id="@+id/meal2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="13dp"
+                    android:fontFamily="@font/poppins"
+                    android:text="Total Expenses"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toEndOf="@+id/elisp2"
+                    app:layout_constraintTop_toTopOf="@+id/elisp2" />
+
+                <TextView
+                    android:id="@+id/tmeal2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins"
+                    android:text="Total Meal Expenses"
+                    android:textSize="11sp"
+                    app:layout_constraintStart_toStartOf="@+id/meal2"
+                    app:layout_constraintTop_toBottomOf="@+id/meal2" />
+
+                <TextView
+                    android:id="@+id/totalExpenses"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins"
+                    android:text="57.00 Tk"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="@+id/card3"
+                    app:layout_constraintTop_toTopOf="@+id/meal2" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/shopping_bag"
+                    app:layout_constraintBottom_toBottomOf="@+id/elisp2"
+                    app:layout_constraintEnd_toEndOf="@+id/elisp2"
+                    app:layout_constraintStart_toStartOf="@+id/elisp2"
+                    app:layout_constraintTop_toTopOf="@+id/elisp2" />
+
+                <ImageView
+                    android:id="@+id/elisp3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="14dp"
+                    android:src="@drawable/ellipse2"
+                    app:layout_constraintStart_toStartOf="@+id/elisp2"
+                    app:layout_constraintTop_toBottomOf="@id/elisp2" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/fridge"
+                    app:layout_constraintBottom_toBottomOf="@+id/elisp3"
+                    app:layout_constraintEnd_toEndOf="@+id/elisp3"
+                    app:layout_constraintStart_toStartOf="@+id/elisp3"
+                    app:layout_constraintTop_toTopOf="@+id/elisp3" />
+
+                <TextView
+                    android:id="@+id/meal3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="13dp"
+                    android:fontFamily="@font/poppins"
+                    android:text="Other Expenses"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toEndOf="@+id/elisp3"
+                    app:layout_constraintTop_toTopOf="@+id/elisp3" />
+
+                <TextView
+                    android:id="@+id/tmeal3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins"
+                    android:text="Other Expenses In Mess"
+                    android:textSize="11sp"
+                    app:layout_constraintStart_toStartOf="@+id/meal3"
+                    app:layout_constraintTop_toBottomOf="@+id/meal3" />
+
+                <TextView
+                    android:id="@+id/otherExpenses"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins"
+                    android:text="57.00 Tk"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="@+id/card3"
+                    app:layout_constraintTop_toTopOf="@+id/meal3" />
+
+                <ImageView
+                    android:id="@+id/elisp4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="14dp"
+                    android:src="@drawable/ellipse4"
+                    app:layout_constraintStart_toStartOf="@+id/elisp3"
+                    app:layout_constraintTop_toBottomOf="@id/elisp3" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/cake"
+                    app:layout_constraintBottom_toBottomOf="@+id/elisp4"
+                    app:layout_constraintEnd_toEndOf="@+id/elisp4"
+                    app:layout_constraintStart_toStartOf="@+id/elisp4"
+                    app:layout_constraintTop_toTopOf="@+id/elisp4" />
+
+                <TextView
+                    android:id="@+id/meal4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="13dp"
+                    android:fontFamily="@font/poppins"
+                    android:text="Total Meal"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toEndOf="@+id/elisp4"
+                    app:layout_constraintTop_toTopOf="@+id/elisp4" />
+
+                <TextView
+                    android:id="@+id/tmeal4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins"
+                    android:text="Total Meal In Mess"
+                    android:textSize="11sp"
+                    app:layout_constraintStart_toStartOf="@+id/meal4"
+                    app:layout_constraintTop_toBottomOf="@+id/meal4" />
+
+                <TextView
+                    android:id="@+id/totalMeal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="30dp"
+                    android:fontFamily="@font/poppins"
+                    android:text="57.00 Tk"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+
+                    app:layout_constraintEnd_toEndOf="@+id/card3"
+                    app:layout_constraintTop_toTopOf="@+id/meal4" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guideline3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.5" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    app:layout_constraintTop_toBottomOf="@+id/tmeal4"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+
+                    />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-        </androidx.cardview.widget.CardView>
 
-
-        <androidx.cardview.widget.CardView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            app:cardElevation="8dp"
-            app:cardCornerRadius="16dp"
-            app:cardBackgroundColor="#FFFFFF"
-            android:layout_marginEnd="36dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/card1"
-            app:layout_constraintStart_toStartOf="@+id/guideline3">
-
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingHorizontal="10dp"
-                android:paddingVertical="9dp">
-
-                <TextView
-                    android:id="@+id/have1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    android:layout_marginTop="5dp"
-                    android:fontFamily="@font/poppins"
-                    android:textSize="14sp"
-                    android:textStyle="bold"
-                    android:text="Your Total Meal" />
-
-                <TextView
-                    android:id="@+id/tvTotalPerMeal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintTop_toBottomOf="@+id/have1"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
-
-                    android:fontFamily="@font/poppins"
-                    android:textSize="14sp"
-                    android:textColor="#1D9323"
-                    android:textStyle="bold"
-                    android:text="17 Meals" />
-
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </androidx.cardview.widget.CardView>
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/card3"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:layout_marginStart="39dp"
-            app:cardElevation="8dp"
-            app:cardCornerRadius="16dp"
-            app:cardBackgroundColor="#FFFFFF"
-            android:layout_marginEnd="36dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/card1">
-
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingHorizontal="10dp"
-                android:paddingVertical="9dp">
-
-                <TextView
-                    android:id="@+id/have3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    android:layout_marginTop="5dp"
-                    android:fontFamily="@font/poppins"
-                    android:textSize="14sp"
-                    android:textStyle="bold"
-                    android:text="Your Current Cost" />
-
-                <TextView
-                    android:id="@+id/tvCurrentPerCost"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintTop_toBottomOf="@+id/have3"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
-
-                    android:fontFamily="@font/poppins"
-                    android:textSize="14sp"
-                    android:textColor="#1D9323"
-                    android:textStyle="bold"
-                    android:text="3500 Tk" />
-
-
-
-
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-        </androidx.cardview.widget.CardView>
-
-
-    <TextView
-        android:id="@+id/crntMess"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
-        android:fontFamily="@font/poppins"
-        android:text="Mess Current Status"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        android:letterSpacing="0.13"
-        app:layout_constraintTop_toBottomOf="@+id/card3"
-        app:layout_constraintStart_toStartOf="@+id/card3" />
-
-        <ImageView
-            android:id="@+id/elisp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="14dp"
-            android:src="@drawable/ellipse"
-            app:layout_constraintTop_toBottomOf="@id/crntMess"
-            app:layout_constraintStart_toStartOf="@+id/crntMess" />
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/dish_1"
-            app:layout_constraintTop_toTopOf="@+id/elisp"
-            app:layout_constraintEnd_toEndOf="@+id/elisp"
-            app:layout_constraintStart_toStartOf="@+id/elisp"
-            app:layout_constraintBottom_toBottomOf="@+id/elisp" />
-        <TextView
-            android:id="@+id/meal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="13dp"
-            android:fontFamily="@font/poppins"
-            android:text="Meal Rate"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            app:layout_constraintTop_toTopOf="@+id/elisp"
-            app:layout_constraintStart_toEndOf="@+id/elisp" />
-        <TextView
-            android:id="@+id/tmeal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/poppins"
-            android:text="Current Meal Rate"
-            android:textSize="11sp"
-            app:layout_constraintTop_toBottomOf="@+id/meal"
-            app:layout_constraintStart_toStartOf="@+id/meal" />
-
-        <TextView
-            android:id="@+id/mealRate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/poppins"
-            android:text="57.00 Tk"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="@+id/card3"
-            app:layout_constraintTop_toTopOf="@+id/meal"/>
-
-        <ImageView
-            android:id="@+id/elisp2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="14dp"
-            android:src="@drawable/ellipse3"
-            app:layout_constraintTop_toBottomOf="@id/elisp"
-            app:layout_constraintStart_toStartOf="@+id/crntMess" />
-        <TextView
-            android:id="@+id/meal2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="13dp"
-            android:fontFamily="@font/poppins"
-            android:text="Total Expenses"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            app:layout_constraintTop_toTopOf="@+id/elisp2"
-            app:layout_constraintStart_toEndOf="@+id/elisp2" />
-        <TextView
-            android:id="@+id/tmeal2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/poppins"
-            android:text="Total Meal Expenses"
-            android:textSize="11sp"
-            app:layout_constraintTop_toBottomOf="@+id/meal2"
-            app:layout_constraintStart_toStartOf="@+id/meal2" />
-        <TextView
-            android:id="@+id/totalExpenses"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/poppins"
-            android:text="57.00 Tk"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="@+id/card3"
-            app:layout_constraintTop_toTopOf="@+id/meal2"/>
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/shopping_bag"
-            app:layout_constraintTop_toTopOf="@+id/elisp2"
-            app:layout_constraintEnd_toEndOf="@+id/elisp2"
-            app:layout_constraintStart_toStartOf="@+id/elisp2"
-            app:layout_constraintBottom_toBottomOf="@+id/elisp2" />
-
-        <ImageView
-            android:id="@+id/elisp3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="14dp"
-            android:src="@drawable/ellipse2"
-            app:layout_constraintTop_toBottomOf="@id/elisp2"
-            app:layout_constraintStart_toStartOf="@+id/elisp2" />
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/fridge"
-            app:layout_constraintTop_toTopOf="@+id/elisp3"
-            app:layout_constraintEnd_toEndOf="@+id/elisp3"
-            app:layout_constraintStart_toStartOf="@+id/elisp3"
-            app:layout_constraintBottom_toBottomOf="@+id/elisp3" />
-
-        <TextView
-            android:id="@+id/meal3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="13dp"
-            android:fontFamily="@font/poppins"
-            android:text="Other Expenses"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            app:layout_constraintTop_toTopOf="@+id/elisp3"
-            app:layout_constraintStart_toEndOf="@+id/elisp3" />
-        <TextView
-            android:id="@+id/tmeal3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/poppins"
-            android:text="Other Expenses In Mess"
-            android:textSize="11sp"
-            app:layout_constraintTop_toBottomOf="@+id/meal3"
-            app:layout_constraintStart_toStartOf="@+id/meal3" />
-
-        <TextView
-            android:id="@+id/otherExpenses"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/poppins"
-            android:text="57.00 Tk"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="@+id/card3"
-            app:layout_constraintTop_toTopOf="@+id/meal3"/>
-
-
-        <ImageView
-            android:id="@+id/elisp4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="14dp"
-            android:src="@drawable/ellipse4"
-            app:layout_constraintTop_toBottomOf="@id/elisp3"
-            app:layout_constraintStart_toStartOf="@+id/elisp3" />
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/cake"
-            app:layout_constraintTop_toTopOf="@+id/elisp4"
-            app:layout_constraintEnd_toEndOf="@+id/elisp4"
-            app:layout_constraintStart_toStartOf="@+id/elisp4"
-            app:layout_constraintBottom_toBottomOf="@+id/elisp4" />
-
-        <TextView
-            android:id="@+id/meal4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="13dp"
-            android:fontFamily="@font/poppins"
-            android:text="Total Meal"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            app:layout_constraintTop_toTopOf="@+id/elisp4"
-            app:layout_constraintStart_toEndOf="@+id/elisp4" />
-        <TextView
-            android:id="@+id/tmeal4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/poppins"
-            android:text="Total Meal In Mess"
-            android:textSize="11sp"
-            app:layout_constraintTop_toBottomOf="@+id/meal4"
-            app:layout_constraintStart_toStartOf="@+id/meal4" />
-
-        <TextView
-            android:id="@+id/totalMeal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/poppins"
-            android:text="57.00 Tk"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="@+id/card3"
-            app:layout_constraintTop_toTopOf="@+id/meal4"/>
-
-
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.5" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.29" />
-
-
-
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
