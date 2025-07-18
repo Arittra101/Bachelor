@@ -3,5 +3,24 @@
     <style name="Base.Theme.Bachelors" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your dark theme here. -->
         <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
+<!--        <item name="colorPrimary">@color/black</item>-->
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="colorError">#E93232</item>
+        <item name="colorError2">#6B6F6B</item>
+        <item name="endColor">#B44040</item>
+        <item name="startColor">#7A1515</item>
+
+        <item name="textColor">#E6E2E2</item>
+        <item name="homebgCardColor">#4E4B4B</item>
+        <item name="homebgSubgCardColor">#373232</item>
+        <item name="navbarBg">#423D3D</item>
+        <item name="navbarBgTextColor">#FAF8F8</item>
+        <item name="iconTint">#D7D0D0</item>
+
+
+    </style>
+
+    <style name="App.Custom.Indicator" parent="Widget.Material3.BottomNavigationView.ActiveIndicator">
+        <item name="android:color">?attr/colorError2</item>
     </style>
 </resources>

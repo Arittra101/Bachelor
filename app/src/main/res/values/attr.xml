@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <attr name="colorError" format="color" />
+    <attr name="colorError2" format="color" />
+    <attr name="startColor" format="color" />
+    <attr name="endColor" format="color" />
+
+<!--    text Color-->
+    <attr name="textColor" format="color" />
+    <attr name="homebgCardColor" format="color" />
+    <attr name="homebgSubgCardColor" format="color" />
+    <attr name="navbarBg" format="color" />
+    <attr name="iconTint" format="color" />
+    <attr name="navbarBgTextColor" format="color" />
+
+
+
+</resources>

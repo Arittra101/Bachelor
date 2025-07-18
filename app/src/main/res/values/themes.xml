@@ -2,8 +2,37 @@
     <!-- Base application theme. -->
     <style name="Base.Theme.Bachelors" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+
+        <!-- Optional: Light system bar icons -->
+        <item name="android:windowLightStatusBar">true</item> <!-- Dark icons -->
+        <item name="android:windowLightNavigationBar">true</item>
+
+        <item name="colorError">#3F51B5</item>
+
+        <item name="colorError2">#EFE4E4</item>
+
+        <item name="textColor">#161414</item>
+        <item name="homebgCardColor">#FFFFFF</item>
+        <item name="homebgSubgCardColor">#F4EEEE</item>
+        <item name="navbarBg">#F6EFEF</item>
+        <item name="navbarBgTextColor">#211616</item>
+        <item name="iconTint">#161515</item>
+
     </style>
 
     <style name="Theme.Bachelors" parent="Base.Theme.Bachelors" />
+    
+    <style name="Theme.Bachelor.Splash" parent="Theme.SplashScreen">
+
+        <item name="windowSplashScreenAnimatedIcon">@drawable/bachelor</item>
+<!--        <item name="windowSplashScreenBackground">#210909</item>-->
+        <item name="postSplashScreenTheme">@style/Base.Theme.Bachelors</item>
+
+    </style>
+
+    <style name="App.Custom.Indicator" parent="Widget.Material3.BottomNavigationView.ActiveIndicator">
+        <item name="android:color">?attr/colorError2</item>
+    </style>
 </resources>

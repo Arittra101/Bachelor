@@ -1,0 +1,11 @@
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_checked="true">
+        <shape android:shape="rectangle">
+            <solid android:color="#FFD1DC" /> <!-- Active item background -->
+            <corners android:radius="50dp" />
+        </shape>
+    </item>
+    <item>
+        <color android:color="@android:color/black" /> <!-- Inactive items -->
+    </item>
+</selector>
