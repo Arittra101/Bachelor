@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "3645232897",
+    "project_id": "bachelor-fe5fe",
+    "storage_bucket": "bachelor-fe5fe.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:3645232897:android:47e6decef6f49b5f9ead00",
+        "android_client_info": {
+          "package_name": "com.example.bachelors"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDm_f2qxwmT-3NEh6lhvIi9VhRrqrn4KLs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
