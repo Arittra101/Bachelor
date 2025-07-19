@@ -1,7 +1,13 @@
 package com.example.bachelors.ui
+
+import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
@@ -16,6 +22,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class MainActivity : AppCompatActivity() {
 
     private val viewModel: MainViewmodel by viewModel()
+    private val NOTIFICATION_PERMISSION_CODE = 101
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,7 +47,39 @@ class MainActivity : AppCompatActivity() {
             view.setPadding(0, 0, 0, 0) // remove padding if any
             insets // return the original insets if you want default behavior
         }
+        checkNotificationPermission()
+    }
 
+    private fun checkNotificationPermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            val permission = android.Manifest.permission.POST_NOTIFICATIONS
+            if (ContextCompat.checkSelfPermission(this, permission)
+                != PackageManager.PERMISSION_GRANTED
+            ) {
+                // optionally, show rationale here
+                ActivityCompat.requestPermissions(
+                    this,
+                    arrayOf(permission),
+                    NOTIFICATION_PERMISSION_CODE
+                )
+            }
+        }
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+
+        if (requestCode == NOTIFICATION_PERMISSION_CODE) {
+            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                Log.d("MainActivity", "Notification permission granted")
+            } else {
+                Log.d("MainActivity", "Notification permission denied")
+            }
+        }
     }
 }
 
