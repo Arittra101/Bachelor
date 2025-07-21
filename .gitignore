@@ -13,9 +13,12 @@
 .externalNativeBuild
 .cxx
 local.properties
+/.idea/shelf/
 /.idea/.name
 /.idea/AndroidProjectSystem.xml
 /.idea/deploymentTargetSelector.xml
 /.idea/runConfigurations.xml
 /.idea/studiobot.xml
 /.idea/vcs.xml
+/.idea/shelf/Uncommitted_changes_before_Update_at_13_7_25__1_50PM__Changes_.xml
+/.idea/shelf/Uncommitted_changes_before_Update_at_13_7_25,_1_50 PM_[Changes]/shelved.patch
