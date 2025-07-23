@@ -6,6 +6,7 @@ import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
@@ -21,8 +22,8 @@ import androidx.compose.ui.unit.dp
 fun HsTopBar(
     title: String,
     showBackButton: Boolean = true,
-    backgroundColor: Color = Color.Black,
-    contentColor: Color = Color.White,
+    backgroundColor: Color = MaterialTheme.colorScheme.primary,
+    contentColor: Color =  MaterialTheme.colorScheme.secondary,
     onBackPress: (() -> Unit)? = null
 ) {
     val backDispatcher = LocalOnBackPressedDispatcherOwner.current?.onBackPressedDispatcher

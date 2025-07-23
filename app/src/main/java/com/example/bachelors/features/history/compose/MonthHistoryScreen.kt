@@ -15,6 +15,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -23,23 +24,23 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.bachelors.R
 import com.example.bachelors.features.common.screen.BaseScreen
-import com.example.bachelors.features.history.ui.theme.PurpleGrey80
+
+
+
 
 @Composable
 fun MonthHistoryScreen() {
 
-    BaseScreen(title = "History", isXMlComponent = true) { innerPadding ->
+    BaseScreen(title = "History", isXMlComponent = true) {
         Box(
             modifier = Modifier
                 .fillMaxSize()
-                .background(PurpleGrey80),
+                .background(MaterialTheme.colorScheme.background),
 
-            contentAlignment = Alignment.Center
         ) {
             Column(
                 modifier = Modifier
@@ -52,8 +53,8 @@ fun MonthHistoryScreen() {
                         MonthHistory(1, "August", 4965.0, 906.25, 20, 250.0),
                         MonthHistory(2, "April", 4965.0, 796.875, 24, 250.0),
                         MonthHistory(3, "March", 4965.0, 906.25, 20, 250.0),
-                        MonthHistory(4, "May", 5165.0, 956.25, 20, 250.0),
-                        MonthHistory(5, "June", 5000.0, 900.0, 22, 260.0)
+//                        MonthHistory(4, "May", 5165.0, 956.25, 20, 250.0),
+//                        MonthHistory(5, "June", 5000.0, 900.0, 22, 260.0)
                     )
                     items(demoMonthHistoryList, key = { it.id }) {
                         MonthHistoryScreenPreview(it)
@@ -65,14 +66,13 @@ fun MonthHistoryScreen() {
 }
 
 @Composable
-@Preview
 fun MonthHistoryScreenPreview(data: MonthHistory) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
             .padding(vertical = 10.dp)
             .clip(shape = RoundedCornerShape(corner = CornerSize(8.dp)))
-            .background(color = Color.White)
+            .background(color = MaterialTheme.colorScheme.onBackground)
 
     ) {
         Column(modifier = Modifier.padding(15.dp)) {
@@ -83,11 +83,12 @@ fun MonthHistoryScreenPreview(data: MonthHistory) {
                         .height(20.dp),
                     painter = painterResource(id = R.drawable.date),
                     contentDescription = "Favorite Icon",
+                    tint = MaterialTheme.colorScheme.secondary
                 )
                 Text(
                     modifier = Modifier.padding(start = 4.dp),
                     text = "January 2023",
-                    color = Color.Black,
+                    color = MaterialTheme.colorScheme.secondary,
                     fontSize = 15.sp,
                     fontWeight = FontWeight.Bold
                 )
@@ -98,13 +99,14 @@ fun MonthHistoryScreenPreview(data: MonthHistory) {
                         .height(10.dp),
                     painter = painterResource(id = R.drawable.details),
                     contentDescription = "Favorite Icon",
+                    tint = MaterialTheme.colorScheme.secondary
                 )
 
             }
             Text(
                 modifier = Modifier.padding(top = 12.dp),
                 text = "Financial Summary",
-                color = Color.DarkGray,
+                color = MaterialTheme.colorScheme.secondary,
                 fontSize = 12.sp,
             )
 
@@ -112,79 +114,42 @@ fun MonthHistoryScreenPreview(data: MonthHistory) {
                 modifier = Modifier.padding(top = 12.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                    Icon(
-                        modifier = Modifier
-                            .width(20.dp)
-                            .height(20.dp),
-                        painter = painterResource(id = R.drawable.money),
-                        contentDescription = "Favorite Icon",
-                    )
-                    Text(
-                        modifier = Modifier.padding(top = 4.dp),
-                        text = "Total Mess Cost",
-                        color = Color.DarkGray,
-                        fontSize = 11.sp,
-                        fontWeight = FontWeight.Bold
-                    )
-                    Text(
-                        modifier = Modifier.padding(top = 4.dp),
-                        text = "$400.00",
-                        color = Color.Red,
-                        fontSize = 11.sp,
-                        fontWeight = FontWeight.Bold
-                    )
-                }
-                Spacer(modifier = Modifier.weight(1f)) // 1 part
-                Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                    Icon(
-                        modifier = Modifier
-                            .width(20.dp)
-                            .height(20.dp),
-                        painter = painterResource(id = R.drawable.money),
-                        contentDescription = "Favorite Icon",
-                    )
-                    Text(
-                        modifier = Modifier.padding(top = 4.dp),
-                        text = "Total Mess Cost",
-                        color = Color.DarkGray,
-                        fontSize = 11.sp,
-                        fontWeight = FontWeight.Bold
-                    )
-                    Text(
-                        modifier = Modifier.padding(top = 4.dp),
-                        text = "$400.00",
-                        color = Color.Red,
-                        fontSize = 11.sp,
-                        fontWeight = FontWeight.Bold
-                    )
-                }
-                Spacer(modifier = Modifier.weight(1f)) // 1 part
-                Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                    Icon(
-                        modifier = Modifier
-                            .width(20.dp)
-                            .height(20.dp),
-                        painter = painterResource(id = R.drawable.money),
-                        contentDescription = "Favorite Icon",
-                    )
-                    Text(
-                        modifier = Modifier.padding(top = 4.dp),
-                        text = "Total Mess Cost",
-                        color = Color.DarkGray,
-                        fontSize = 11.sp,
-                        fontWeight = FontWeight.Bold
-                    )
-                    Text(
-                        modifier = Modifier.padding(top = 4.dp),
-                        text = "$400.00",
-                        color = Color.Red,
-                        fontSize = 11.sp,
-                        fontWeight = FontWeight.Bold
-                    )
-                }
+                MonthHistoryCostSummary(R.drawable.money)
+                Spacer(modifier = Modifier.weight(1f))
+                MonthHistoryCostSummary(R.drawable.money)
+                Spacer(modifier = Modifier.weight(1f))
+                MonthHistoryCostSummary(R.drawable.money)
             }
         }
+    }
+}
+
+@Composable
+fun MonthHistoryCostSummary(icon: Int) {
+
+    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+        Icon(
+            modifier = Modifier
+                .width(20.dp)
+                .height(20.dp),
+            painter = painterResource(id = icon),
+            contentDescription = "Favorite Icon",
+            tint = MaterialTheme.colorScheme.secondary,
+        )
+        Text(
+            modifier = Modifier.padding(top = 4.dp),
+            text = "Total Mess Cost",
+            color = MaterialTheme.colorScheme.secondary,
+            fontSize = 11.sp,
+            fontWeight = FontWeight.Bold
+        )
+        Text(
+            modifier = Modifier.padding(top = 4.dp),
+            text = "$400.00",
+            color = Color.Red,
+            fontSize = 11.sp,
+            fontWeight = FontWeight.Bold
+        )
     }
 }
 
