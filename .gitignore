@@ -19,3 +19,5 @@ local.properties
 /.idea/runConfigurations.xml
 /.idea/studiobot.xml
 /.idea/vcs.xml
+.idea/gradle.xml
+.idea/misc.xml
