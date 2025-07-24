@@ -5,15 +5,16 @@ import android.view.LayoutInflater
 import androidx.fragment.app.Fragment
 import android.view.View
 import android.view.ViewGroup
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.ComposeView
-import com.example.bachelors.features.history.compose.MonthHistoryScreen
+import androidx.navigation.findNavController
+import com.example.bachelors.features.common.HomeHistoryViewModel
+import com.example.bachelors.features.history.compose.MonthHistoryScreenRoute
 import com.example.bachelors.ui.theme.MyAppTheme
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class HistoryFragment : Fragment() {
+//    private val viewModel: HomeHistoryViewModel by viewModel()
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -21,9 +22,10 @@ class HistoryFragment : Fragment() {
     ): View {
         return ComposeView(requireContext()).apply {
             setContent {
-//                val isDarkTheme by remember { mutableStateOf(false) }
+
+                val navController = findNavController()
                 MyAppTheme() {
-                    MonthHistoryScreen()
+                    MonthHistoryScreenRoute(navController)
                 }
             }
         }

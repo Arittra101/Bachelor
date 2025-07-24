@@ -26,14 +26,30 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.example.bachelors.R
+import com.example.bachelors.core.common.data.model.HistoryItem
+import com.example.bachelors.features.common.HistoryScreenEvent
+import com.example.bachelors.features.common.HistoryState
+import com.example.bachelors.features.common.HomeHistoryViewModel
 import com.example.bachelors.features.common.screen.BaseScreen
-
-
+import org.koin.androidx.compose.koinViewModel
 
 
 @Composable
-fun MonthHistoryScreen() {
+internal fun MonthHistoryScreenRoute(
+    navController: NavController,
+    viewModel: HomeHistoryViewModel = koinViewModel()
+
+) {
+
+    val state = viewModel.historyState
+    val onEvent = viewModel::handleHistoryEvent
+    MonthHistoryScreen(state,onEvent)
+}
+
+@Composable
+fun MonthHistoryScreen(state: HistoryState, onEvent: (event: HistoryScreenEvent) -> Unit) {
 
     BaseScreen(title = "History", isXMlComponent = true) {
         Box(
@@ -49,14 +65,15 @@ fun MonthHistoryScreen() {
                     modifier = Modifier
                         .padding(start = 16.dp, end = 16.dp, bottom = 0.dp)
                 ) {
-                    val demoMonthHistoryList = listOf(
+                    val demoMonthHistoryList = state.historyItem ?: emptyList()
+                        /*listOf(
                         MonthHistory(1, "August", 4965.0, 906.25, 20, 250.0),
                         MonthHistory(2, "April", 4965.0, 796.875, 24, 250.0),
                         MonthHistory(3, "March", 4965.0, 906.25, 20, 250.0),
 //                        MonthHistory(4, "May", 5165.0, 956.25, 20, 250.0),
 //                        MonthHistory(5, "June", 5000.0, 900.0, 22, 260.0)
-                    )
-                    items(demoMonthHistoryList, key = { it.id }) {
+                    )*/
+                    items(demoMonthHistoryList, key = { it }) {
                         MonthHistoryScreenPreview(it)
                     }
                 }
@@ -66,7 +83,7 @@ fun MonthHistoryScreen() {
 }
 
 @Composable
-fun MonthHistoryScreenPreview(data: MonthHistory) {
+fun MonthHistoryScreenPreview(data: HistoryItem) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
