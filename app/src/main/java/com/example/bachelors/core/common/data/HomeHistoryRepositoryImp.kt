@@ -15,21 +15,14 @@ class HomeHistoryRepositoryImp(
     private val dispatcher: CoroutineDispatcher = Dispatchers.IO
 ) :
     HomeHistoryRepository {
-    override suspend fun getHistory(
-        name: String,
-        month: String,
-        action: String
-    ): Flow<List<HistoryItem>> {
+    override suspend fun getHistory(name: String, month: String, action: String): Flow<List<HistoryItem>> {
         return flow {
-            val result = homeHistoryService.getHomeHistory().data ?: listOf()
+            val result = homeHistoryService.getHomeHistory(name,month,action).data ?: listOf()
             emit(result)
         }.flowOn(dispatcher)
     }
 
-    override suspend fun getUserCurrentMealInfo(
-        name: String,
-        action: String
-    ): Flow<List<UserInfo>> {
+    override suspend fun getUserCurrentMealInfo(name: String, action: String): Flow<List<UserInfo>> {
         return flow {
             val result = homeHistoryService.getUserCurrentMealInfo(name,action).data ?: listOf()
             emit(result)

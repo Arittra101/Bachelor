@@ -1,6 +1,8 @@
 package com.example.bachelors.features.common
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.bachelors.core.common.allSheets
+import com.example.bachelors.core.common.allSheets.allMonths
 import com.example.bachelors.core.common.data.model.Months
 import com.example.bachelors.core.common.domain.repository.HomeHistoryRepository
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -23,6 +25,7 @@ class MainViewmodel(private val homeHistoryRepository: HomeHistoryRepository) : 
             isFetchDone.value = true
             monthList.value = it
             Months.months = it
+            allMonths = it
         }
     }
 

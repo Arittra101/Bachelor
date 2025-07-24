@@ -1,27 +1,45 @@
 package com.example.bachelors.features.common
 
 import android.util.Log
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.bachelors.core.common.data.model.HistoryItem
 import com.example.bachelors.core.common.data.model.Months
 import com.example.bachelors.core.common.domain.repository.HomeHistoryRepository
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 
+/*this codebase is congested because slow api response dependency.
+after we complete backend viewmodel will be separated for each screen*/
 class HomeHistoryViewModel(
     private val homeHistoryRepository: HomeHistoryRepository,
-    /* private val savedStateHandle: SavedStateHandle*/
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow<HomeHistoryUiState>(HomeHistoryUiState.Loading)
+
     val uiState = _uiState
-
     private val _uiEffect = MutableSharedFlow<HomeUiEffect>()
-    val uiEffect = _uiEffect
 
+    val uiEffect = _uiEffect
     var isDataLoaded = false;
+
+    //for history fragment
+    var historyState by mutableStateOf(HistoryState())
+
+
+    init {
+        viewModelScope.launch {
+            homeHistoryRepository.getMonthList("allsheetsname").collect{
+                Log.wtf("crey","get all month from history UI ${it}")
+                fetchHistory("Arittra", "april","allsheets")
+            }
+        }
+    }
 
 
     fun fetchUserCurrentMealInfo(
@@ -44,17 +62,15 @@ class HomeHistoryViewModel(
         month: String,
         action: String
     ){
+        Log.wtf("crey","going for fetchHistory")
         viewModelScope.launch {
             homeHistoryRepository.getHistory(name,month,action).collect{
-                _uiState.value = HomeHistoryUiState.Success(it)
-                _uiEffect.emit(HomeUiEffect.ShowSuccess("Data fetched successfully"))
-                isDataLoaded = true
+                Log.wtf("crey","get history from home history viewmodel ${it}")
+                historyState = historyState.copy(historyItem = it)
             }
-
         }
     }
 
-    //from ui to viewmodel
     fun handleHomeIntent(event: HomeIntent){
         when(event){
             is HomeIntent.LoadData -> {
@@ -63,9 +79,32 @@ class HomeHistoryViewModel(
         }
     }
 
+    fun handleHistoryEvent(event: HistoryScreenEvent) {
+        when (event) {
+            is HistoryScreenEvent.FetchHistory -> {
+                fetchHistory(event.name, event.month, event.action)
+            }
+        }
+    }
+
+
+
 
 }
+//for History Fragment
+data class HistoryState(
+    val historyItem: List<HistoryItem>?=null,
+    val isLoading: Boolean = true,
+)
+sealed class HistoryScreenEvent {
+    data class FetchHistory(
+        val name: String,
+        val month: String,
+        val action: String
+    ) : HistoryScreenEvent()
+}
 
+//for HomeFragment
 sealed class HomeHistoryUiState {
     data object Loading : HomeHistoryUiState()
     data class Success(val data: List<Any> = emptyList()) : HomeHistoryUiState()
