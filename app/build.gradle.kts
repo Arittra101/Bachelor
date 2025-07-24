@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -102,5 +103,7 @@ dependencies {
     // Compose integration (optional if using Compose)
     implementation("io.insert-koin:koin-androidx-compose:3.5.3")
 
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.messaging)
 
 }
