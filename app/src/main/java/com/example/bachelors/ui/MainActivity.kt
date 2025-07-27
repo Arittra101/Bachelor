@@ -4,6 +4,7 @@ import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
@@ -16,6 +17,7 @@ import androidx.navigation.ui.NavigationUI
 import com.example.bachelors.R
 import com.example.bachelors.features.common.MainViewmodel
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.firebase.messaging.FirebaseMessaging
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
@@ -23,6 +25,7 @@ class MainActivity : AppCompatActivity() {
 
     private val viewModel: MainViewmodel by viewModel()
     private val NOTIFICATION_PERMISSION_CODE = 101
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -48,6 +51,21 @@ class MainActivity : AppCompatActivity() {
             insets // return the original insets if you want default behavior
         }
         checkNotificationPermission()
+        firebaseNotificationSubscribeTopic()
+    }
+
+    //we have to get topic from api
+    private fun firebaseNotificationSubscribeTopic(){
+        FirebaseMessaging.getInstance().subscribeToTopic("offer")
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    Toast.makeText(this, "Subscribed to topic", Toast.LENGTH_SHORT).show()
+                    Log.d("FCM", "Subscribed to topic: news")
+                } else {
+                    Toast.makeText(this, "Subscription failed", Toast.LENGTH_SHORT).show()
+                    Log.e("FCM", "Topic subscription failed", task.exception)
+                }
+            }
     }
 
     private fun checkNotificationPermission() {
