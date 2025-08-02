@@ -1,4 +1,5 @@
 [versions]
+accompanistPlaceholderMaterial = "0.30.1"
 agp = "8.3.2"
 coreSplashscreen = "1.0.1"
 kotlin = "1.9.22"
@@ -14,6 +15,7 @@ navigationFragmentKtx = "2.6.0"
 retrofit = "2.11.0"
 
 [libraries]
+accompanist-placeholder-material = { module = "com.google.accompanist:accompanist-placeholder-material", version.ref = "accompanistPlaceholderMaterial" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 androidx-core-splashscreen = { module = "androidx.core:core-splashscreen", version.ref = "coreSplashscreen" }
 androidx-navigation-fragment-ktx = { module = "androidx.navigation:navigation-fragment-ktx", version.ref = "navigationFragmentKtx" }

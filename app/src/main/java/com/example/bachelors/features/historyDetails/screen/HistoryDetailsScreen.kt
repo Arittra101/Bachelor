@@ -28,13 +28,10 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.Color.Companion.Red
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.example.bachelors.core.common.data.model.HistoryItem
 import com.example.bachelors.features.common.screen.BaseScreen
 import com.example.bachelors.features.historyDetails.ui.HistoryDetailsEvent
 import com.example.bachelors.features.historyDetails.ui.HistoryDetailsMealState
@@ -50,8 +47,8 @@ internal fun HistoryDetailsRoutes(
     viewModel: HistoryDetailsViewmodel = koinViewModel()
 ) {
     val state by viewModel.mealExpensesHistories.collectAsState()
-    val onEvent = viewModel:: handleHistoryDetailsEvent
-    HistoryScreen(state,onEvent)
+    val onEvent = viewModel::handleHistoryDetailsEvent
+    HistoryScreen(state, onEvent)
 }
 
 @OptIn(ExperimentalFoundationApi::class)
@@ -62,7 +59,7 @@ fun HistoryScreen(state: HistoryDetailsMealState?, onEvent: (event: HistoryDetai
     val pagerState = rememberPagerState(pageCount = { HistoryTabs.entries.size })
     val selectedTabIndex = remember { derivedStateOf { pagerState.currentPage } }
 
-    BaseScreen(title = "History", isXMlComponent = true , zeroBottomPadding = true) {
+    BaseScreen(title = "History", isXMlComponent = true, zeroBottomPadding = true) {
         Column() {
             TabRow(
                 selectedTabIndex = selectedTabIndex.value,
@@ -73,7 +70,7 @@ fun HistoryScreen(state: HistoryDetailsMealState?, onEvent: (event: HistoryDetai
                     Tab(
                         selected = index == selectedTabIndex.value,
                         selectedContentColor = MaterialTheme.colorScheme.onSecondary,
-                        unselectedContentColor =MaterialTheme.colorScheme.secondaryContainer,
+                        unselectedContentColor = MaterialTheme.colorScheme.secondaryContainer,
                         modifier = Modifier.padding(10.dp),
                         onClick = {
                             scope.launch {
@@ -102,17 +99,8 @@ fun HistoryScreen(state: HistoryDetailsMealState?, onEvent: (event: HistoryDetai
             ) { page ->
                 Box(
                     modifier = Modifier.fillMaxSize(),
-//                    contentAlignment = Alignment.Center
                 ) {
-                    val initialHistoryItem = HistoryItem(
-                        monthName = "January",
-                        totalMessExpenses = 0.0,
-                        totalMemberExpenses = 0.0,
-                        totalMessMeal = 0.0,
-                        otherAvgCost = 0.0
-                    )
-
-                    MealsExpensesScreen(state?.mealExpensesHistories)
+                    MealsExpensesScreen(state?.mealExpensesHistories,state?.isLoading)
 //                    MonthHistoryScreenPreview(0.dp,initialHistoryItem,null)
 
                 }
@@ -128,7 +116,6 @@ fun HistoryScreen(state: HistoryDetailsMealState?, onEvent: (event: HistoryDetai
             }
     }
 }
-
 
 enum class HistoryTabs(
     val selectedIcon: ImageVector,

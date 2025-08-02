@@ -67,7 +67,7 @@ class HomeHistoryViewModel(
         viewModelScope.launch {
             homeHistoryRepository.getHistory(name,month,action).collect{
                 Log.wtf("crey","get history from home history viewmodel ${it}")
-                historyState = historyState.copy(historyItem = it)
+                historyState = historyState.copy(historyItem = it, isLoading = false)
             }
         }
     }
