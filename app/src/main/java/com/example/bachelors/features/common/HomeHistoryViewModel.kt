@@ -21,8 +21,9 @@ class HomeHistoryViewModel(
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow<HomeHistoryUiState>(HomeHistoryUiState.Loading)
-
     val uiState = _uiState
+
+
     private val _uiEffect = MutableSharedFlow<HomeUiEffect>()
 
     val uiEffect = _uiEffect

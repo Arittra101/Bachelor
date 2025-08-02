@@ -17,7 +17,8 @@ fun BaseScreen(
     modifier: Modifier = Modifier,
     title: String? = null,
     isTopLevelScreen: Boolean = false,
-    isXMlComponent: Boolean = true,
+    isXMlComponent: Boolean = false,
+    zeroBottomPadding: Boolean = false,
     showBackButton: Boolean = true,
     onBackPress: (() -> Unit)? = null,
     topBarContent: (@Composable () -> Unit)? = null,
@@ -43,6 +44,7 @@ fun BaseScreen(
                 .conditional(
                     isTopLevelScreen = isTopLevelScreen,
                     isXML = isXMlComponent,
+                    isZeroBottomPadding = zeroBottomPadding,
                     ifTrue = {
                         Modifier.padding(
                             bottom = innerPadding.calculateBottomPadding() + 56.dp
@@ -51,6 +53,11 @@ fun BaseScreen(
                     ifXMLTrue = {
                         Modifier.padding(
                             bottom = 56.dp
+                        )
+                    },
+                    ifZeroBottomBarTrue = {
+                        Modifier.padding(
+                            bottom = 0.dp
                         )
                     },
                 )

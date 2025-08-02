@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
-import com.example.bachelors.features.history.compose.MonthHistoryScreenRoute
+import com.example.bachelors.features.historyDetails.screen.HistoryDetailsRoutes
 import com.example.bachelors.ui.theme.MyAppTheme
 
 class HistoryDetailsFragment : Fragment() {
@@ -18,10 +18,9 @@ class HistoryDetailsFragment : Fragment() {
     ): View {
         return ComposeView(requireContext()).apply {
             setContent {
-
                 val navController = findNavController()
                 MyAppTheme() {
-                    MonthHistoryScreenRoute(navController)
+                    HistoryDetailsRoutes(navController)
                 }
             }
         }

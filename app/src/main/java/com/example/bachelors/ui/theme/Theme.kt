@@ -14,18 +14,23 @@ private val DarkColor = darkColorScheme(
     primary = dark,
     background = dark,
     onBackground = lightDark,
-    secondary = textColorDark
+    secondary = textColorDark,
+    onSecondary = white,
+    secondaryContainer = white
+
 )
 
 private val LightColors = lightColorScheme(
     primary = white,
     background = white,
     onBackground = lightWhite,
-    secondary = textColorLight
-   /* primary = dark,
-    background = dark,
-    onBackground = lightDark,
-    secondary = textColorDark*/
+    secondary = textColorLight,
+    onSecondary = dark,
+    secondaryContainer = dark
+    /* primary = dark,
+     background = dark,
+     onBackground = lightDark,
+     secondary = textColorDark*/
 )
 
 @Composable
@@ -40,6 +45,7 @@ fun MyAppTheme(
             if (useDarkTheme) dynamicDarkColorScheme(context)
             else dynamicLightColorScheme(context)
         }
+
         useDarkTheme -> DarkColor
         else -> LightColors
     }

@@ -1,8 +1,10 @@
 package com.example.bachelors.features.history.compose
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -24,6 +26,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
@@ -42,14 +45,13 @@ internal fun MonthHistoryScreenRoute(
     viewModel: HomeHistoryViewModel = koinViewModel()
 
 ) {
-
     val state = viewModel.historyState
     val onEvent = viewModel::handleHistoryEvent
-    MonthHistoryScreen(state,onEvent)
+    MonthHistoryScreen(state,onEvent,navController)
 }
 
 @Composable
-fun MonthHistoryScreen(state: HistoryState, onEvent: (event: HistoryScreenEvent) -> Unit) {
+fun MonthHistoryScreen(state: HistoryState, onEvent: (event: HistoryScreenEvent) -> Unit,navController:NavController) {
 
     BaseScreen(title = "History", isXMlComponent = true) {
         Box(
@@ -74,7 +76,7 @@ fun MonthHistoryScreen(state: HistoryState, onEvent: (event: HistoryScreenEvent)
 //                        MonthHistory(5, "June", 5000.0, 900.0, 22, 260.0)
                     )*/
                     items(demoMonthHistoryList, key = { it }) {
-                        MonthHistoryScreenPreview(it)
+                        MonthHistoryScreenPreview(10.dp,it,navController)
                     }
                 }
             }
@@ -83,13 +85,14 @@ fun MonthHistoryScreen(state: HistoryState, onEvent: (event: HistoryScreenEvent)
 }
 
 @Composable
-fun MonthHistoryScreenPreview(data: HistoryItem) {
+fun MonthHistoryScreenPreview(paddingValues: Dp,data: HistoryItem,navController: NavController?) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(vertical = 10.dp)
+            .padding(vertical = paddingValues)
             .clip(shape = RoundedCornerShape(corner = CornerSize(8.dp)))
             .background(color = MaterialTheme.colorScheme.onBackground)
+            .clickable { navController?.navigate(R.id.historyDetailsFragment) }
 
     ) {
         Column(modifier = Modifier.padding(15.dp)) {
@@ -107,7 +110,7 @@ fun MonthHistoryScreenPreview(data: HistoryItem) {
                     text = "January 2023",
                     color = MaterialTheme.colorScheme.secondary,
                     fontSize = 15.sp,
-                    fontWeight = FontWeight.Bold
+                    fontWeight = FontWeight.Bold,
                 )
                 Spacer(modifier = Modifier.weight(1f))
                 Icon(
