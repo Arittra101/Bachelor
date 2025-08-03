@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
@@ -36,6 +37,7 @@ import com.example.bachelors.core.common.data.model.HistoryItem
 import com.example.bachelors.features.common.HistoryScreenEvent
 import com.example.bachelors.features.common.HistoryState
 import com.example.bachelors.features.common.HomeHistoryViewModel
+import com.example.bachelors.features.common.screen.Animation
 import com.example.bachelors.features.common.screen.BaseScreen
 import com.example.bachelors.features.common.screen.CustomShimmerEffect
 import org.koin.androidx.compose.koinViewModel
@@ -80,8 +82,14 @@ fun MonthHistoryScreen(
                         }
                     } else {
                         val demoMonthHistoryList = state.historyItem ?: emptyList()
-                        items(demoMonthHistoryList, key = { it }) {
-                            MonthHistoryScreenPreview(10.dp, it, navController)
+                        itemsIndexed(
+                            demoMonthHistoryList,
+                            key = { _, item -> item.hashCode() }) { index, item ->
+
+                            Animation(item, index) {
+                                MonthHistoryScreenPreview(10.dp, it as HistoryItem, navController)
+                            }
+
                         }
                     }
                 }
