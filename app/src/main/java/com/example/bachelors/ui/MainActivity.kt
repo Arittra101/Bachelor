@@ -1,4 +1,5 @@
 package com.example.bachelors.ui
+
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -9,6 +10,7 @@ import androidx.core.view.isVisible
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
 import com.example.bachelors.R
+import com.example.bachelors.databinding.ActivityMainBinding
 import com.example.bachelors.features.common.MainViewmodel
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -17,38 +19,36 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class MainActivity : AppCompatActivity() {
 
     private val viewModel: MainViewmodel by viewModel()
-
+    private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
+        installSplashScreen()
         super.onCreate(savedInstanceState)
-        WindowCompat.setDecorFitsSystemWindows(window, false)
-        installSplashScreen()/*.setKeepOnScreenCondition{
-            !viewModel.isFetchDone.value
-        }
-*/
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
         enableEdgeToEdge()
-        setContentView(R.layout.activity_main)
+
 
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         val navController = navHostFragment.navController
 
-        val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_navigation_bar)
+        val bottomNavigationView = binding.bottomNavigationBar
         NavigationUI.setupWithNavController(bottomNavigationView, navController)
 
-        ViewCompat.setOnApplyWindowInsetsListener(bottomNavigationView) { view, insets ->
-            view.setPadding(0, 0, 0, 0) // remove padding if any
-            insets // return the original insets if you want default behavior
-        }
-
-        navController.addOnDestinationChangedListener{ _, destination, _ ->
-            when(destination.id){
-               R.id.historyDetailsFragment -> findViewById<BottomNavigationView>(R.id.bottom_navigation_bar).isVisible = false
-                else -> findViewById<BottomNavigationView>(R.id.bottom_navigation_bar).isVisible = true
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            when (destination.id) {
+                R.id.historyDetailsFragment -> isVisibleBottomBar(false)
+                else -> isVisibleBottomBar(true)
             }
         }
 
+    }
+
+    private fun isVisibleBottomBar(isVisible: Boolean) {
+        binding.bottomNavigationBar.isVisible = isVisible
     }
 }
 
