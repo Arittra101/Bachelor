@@ -6,6 +6,7 @@
 /.idea/modules.xml
 /.idea/workspace.xml
 /.idea/navEditor.xml
+/.idea/gradle.xml.xml
 /.idea/assetWizardSettings.xml
 .DS_Store
 /build
@@ -21,3 +22,11 @@ local.properties
 /.idea/vcs.xml
 .idea/gradle.xml
 .idea/misc.xml
+
+/.idea/compiler.xml
+/.idea/gradle.xml
+/.idea/misc.xml
+/.idea/shelf/Uncommitted_changes_before_Update_at_13_7_25,_1_50 PM_[Changes]/shelved.patch
+/.idea/shelf/Uncommitted_changes_before_Update_at_13_7_25__1_50PM__Changes_.xml
+/.idea/kotlinc.xml
+/.idea/migrations.xml

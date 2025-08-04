@@ -1,18 +1,34 @@
 package com.example.bachelors.features.history.ui
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import androidx.fragment.app.Fragment
 import android.view.View
-import com.example.bachelors.R
-import com.example.bachelors.databinding.FragmentHistoryBinding
+import android.view.ViewGroup
+import androidx.compose.ui.platform.ComposeView
+import androidx.navigation.findNavController
+import com.example.bachelors.features.common.HomeHistoryViewModel
+import com.example.bachelors.features.history.compose.MonthHistoryScreenRoute
+import com.example.bachelors.ui.theme.MyAppTheme
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class HistoryFragment : Fragment(R.layout.fragment_history) {
+class HistoryFragment : Fragment() {
+//    private val viewModel: HomeHistoryViewModel by viewModel()
 
-    private lateinit var binding: FragmentHistoryBinding
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        return ComposeView(requireContext()).apply {
+            setContent {
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        binding = FragmentHistoryBinding.bind(view)
-        super.onViewCreated(view, savedInstanceState)
+                val navController = findNavController()
+                MyAppTheme() {
+                    MonthHistoryScreenRoute(navController)
+                }
+            }
+        }
 
     }
 }
