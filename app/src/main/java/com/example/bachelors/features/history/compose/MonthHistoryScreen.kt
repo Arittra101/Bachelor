@@ -1,10 +1,13 @@
 package com.example.bachelors.features.history.compose
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -12,6 +15,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
@@ -24,6 +28,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
@@ -32,7 +37,9 @@ import com.example.bachelors.core.common.data.model.HistoryItem
 import com.example.bachelors.features.common.HistoryScreenEvent
 import com.example.bachelors.features.common.HistoryState
 import com.example.bachelors.features.common.HomeHistoryViewModel
+import com.example.bachelors.features.common.screen.Animation
 import com.example.bachelors.features.common.screen.BaseScreen
+import com.example.bachelors.features.common.screen.CustomShimmerEffect
 import org.koin.androidx.compose.koinViewModel
 
 
@@ -42,14 +49,17 @@ internal fun MonthHistoryScreenRoute(
     viewModel: HomeHistoryViewModel = koinViewModel()
 
 ) {
-
     val state = viewModel.historyState
     val onEvent = viewModel::handleHistoryEvent
-    MonthHistoryScreen(state,onEvent)
+    MonthHistoryScreen(state, onEvent, navController)
 }
 
 @Composable
-fun MonthHistoryScreen(state: HistoryState, onEvent: (event: HistoryScreenEvent) -> Unit) {
+fun MonthHistoryScreen(
+    state: HistoryState,
+    onEvent: (event: HistoryScreenEvent) -> Unit,
+    navController: NavController
+) {
 
     BaseScreen(title = "History", isXMlComponent = true) {
         Box(
@@ -57,7 +67,7 @@ fun MonthHistoryScreen(state: HistoryState, onEvent: (event: HistoryScreenEvent)
                 .fillMaxSize()
                 .background(MaterialTheme.colorScheme.background),
 
-        ) {
+            ) {
             Column(
                 modifier = Modifier
             ) {
@@ -65,16 +75,22 @@ fun MonthHistoryScreen(state: HistoryState, onEvent: (event: HistoryScreenEvent)
                     modifier = Modifier
                         .padding(start = 16.dp, end = 16.dp, bottom = 0.dp)
                 ) {
-                    val demoMonthHistoryList = state.historyItem ?: emptyList()
-                        /*listOf(
-                        MonthHistory(1, "August", 4965.0, 906.25, 20, 250.0),
-                        MonthHistory(2, "April", 4965.0, 796.875, 24, 250.0),
-                        MonthHistory(3, "March", 4965.0, 906.25, 20, 250.0),
-//                        MonthHistory(4, "May", 5165.0, 956.25, 20, 250.0),
-//                        MonthHistory(5, "June", 5000.0, 900.0, 22, 260.0)
-                    )*/
-                    items(demoMonthHistoryList, key = { it }) {
-                        MonthHistoryScreenPreview(it)
+
+                    if (state.isLoading) {
+                        items(3) {
+                            CustomShimmerEffect(largeRow = true)
+                        }
+                    } else {
+                        val demoMonthHistoryList = state.historyItem ?: emptyList()
+                        itemsIndexed(
+                            demoMonthHistoryList,
+                            key = { _, item -> item.hashCode() }) { index, item ->
+
+                            Animation(item, index) {
+                                MonthHistoryScreenPreview(10.dp, it as HistoryItem, navController)
+                            }
+
+                        }
                     }
                 }
             }
@@ -83,13 +99,14 @@ fun MonthHistoryScreen(state: HistoryState, onEvent: (event: HistoryScreenEvent)
 }
 
 @Composable
-fun MonthHistoryScreenPreview(data: HistoryItem) {
+fun MonthHistoryScreenPreview(paddingValues: Dp, data: HistoryItem, navController: NavController?) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(vertical = 10.dp)
+            .padding(vertical = paddingValues)
             .clip(shape = RoundedCornerShape(corner = CornerSize(8.dp)))
             .background(color = MaterialTheme.colorScheme.onBackground)
+            .clickable { navController?.navigate(R.id.historyDetailsFragment) }
 
     ) {
         Column(modifier = Modifier.padding(15.dp)) {
@@ -107,7 +124,7 @@ fun MonthHistoryScreenPreview(data: HistoryItem) {
                     text = "January 2023",
                     color = MaterialTheme.colorScheme.secondary,
                     fontSize = 15.sp,
-                    fontWeight = FontWeight.Bold
+                    fontWeight = FontWeight.Bold,
                 )
                 Spacer(modifier = Modifier.weight(1f))
                 Icon(
