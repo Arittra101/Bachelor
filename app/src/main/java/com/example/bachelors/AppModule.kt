@@ -3,6 +3,7 @@ package com.example.bachelors
 import com.example.bachelors.core.common.data.HomeHistoryRepositoryImp
 import com.example.bachelors.core.common.domain.repository.HomeHistoryRepository
 import com.example.bachelors.core.common.network.HomeHistoryService
+import com.example.bachelors.features.authentication.login.LoginViewModel
 import com.example.bachelors.features.common.HomeHistoryViewModel
 import com.example.bachelors.features.common.MainViewmodel
 import com.google.gson.GsonBuilder
@@ -29,6 +30,7 @@ val appModule = module {
     //create viewmodel instance
     viewModel { HomeHistoryViewModel(get()) }
     viewModel { MainViewmodel(get()) }
+    viewModel { LoginViewModel() }
 
 }
 

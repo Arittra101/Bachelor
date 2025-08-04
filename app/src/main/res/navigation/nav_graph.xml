@@ -3,15 +3,22 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/nav_home">
+    app:startDestination="@id/loginFragment">
+
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.example.bachelors.features.authentication.login.LoginFragment"
+        android:label="Login"
+        tools:layout="@layout/fragment_placeholder" />
 
     <fragment
         android:id="@+id/nav_home"
         android:name="com.example.bachelors.ui.HomeFragment"
         android:label="fragment_home_activity"
         tools:layout="@layout/fragment_home_activity" />
+
     <fragment
         android:id="@+id/nav_date"
         android:name="com.example.bachelors.features.history.ui.HistoryFragment"
-        android:label="BlankFragment" />
+        android:label="HistoryFragment" />
 </navigation>
