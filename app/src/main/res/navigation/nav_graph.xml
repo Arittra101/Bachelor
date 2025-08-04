@@ -20,5 +20,11 @@
     <fragment
         android:id="@+id/nav_date"
         android:name="com.example.bachelors.features.history.ui.HistoryFragment"
+        android:label="BlankFragment" />
+    <fragment
+        android:id="@+id/historyDetailsFragment"
+        android:name="com.example.bachelors.features.historyDetails.ui.HistoryDetailsFragment"
+        android:label="fragment_history_details"
+        tools:layout="@layout/fragment_history_details" />
         android:label="HistoryFragment" />
 </navigation>

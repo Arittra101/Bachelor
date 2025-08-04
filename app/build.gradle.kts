@@ -104,5 +104,8 @@ dependencies {
     // Compose integration (optional if using Compose)
     implementation("io.insert-koin:koin-androidx-compose:3.5.3")
 
+    implementation(libs.accompanist.placeholder.material) // Check latest version
+
+
 
 }

@@ -26,6 +26,7 @@
             android:layout_height="wrap_content"
             app:labelVisibilityMode="labeled"
             android:background="?attr/navbarBg"
+            tools:visibility="visible"
             app:itemIconTint="?attr/iconTint"
             app:itemTextColor="?attr/navbarBgTextColor"
             app:itemActiveIndicatorStyle="@style/App.Custom.Indicator"

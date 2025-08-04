@@ -21,8 +21,9 @@ class HomeHistoryViewModel(
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow<HomeHistoryUiState>(HomeHistoryUiState.Loading)
-
     val uiState = _uiState
+
+
     private val _uiEffect = MutableSharedFlow<HomeUiEffect>()
 
     val uiEffect = _uiEffect
@@ -66,7 +67,7 @@ class HomeHistoryViewModel(
         viewModelScope.launch {
             homeHistoryRepository.getHistory(name,month,action).collect{
                 Log.wtf("crey","get history from home history viewmodel ${it}")
-                historyState = historyState.copy(historyItem = it)
+                historyState = historyState.copy(historyItem = it, isLoading = false)
             }
         }
     }
