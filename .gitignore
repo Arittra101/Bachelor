@@ -28,3 +28,5 @@ local.properties
 /.idea/kotlinc.xml
 /.idea/migrations.xml
 /.idea/inspectionProfiles/Project_Default.xml
+/.idea/codeStyles/codeStyleConfig.xml
+/.idea/codeStyles/Project.xml
