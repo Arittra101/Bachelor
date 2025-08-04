@@ -8,8 +8,12 @@ import retrofit2.http.Query
 
 interface HomeHistoryService {
 
-    @GET
-    suspend fun getHomeHistory(): HistoryItemResponse
+    @GET("echo")
+    suspend fun getHomeHistory(
+        @Query("name") name: String,
+        @Query("month") month: String,
+        @Query("action") action: String,
+    ): HistoryItemResponse
 
     @GET("echo")
     suspend fun getUserCurrentMealInfo(

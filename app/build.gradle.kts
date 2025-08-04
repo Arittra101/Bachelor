@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
     id("com.google.gms.google-services")
+    id("kotlin-parcelize")
 }
 
 android {
@@ -25,6 +26,7 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            signingConfig = signingConfigs.getByName("debug")
         }
     }
     compileOptions {
@@ -102,6 +104,9 @@ dependencies {
 
     // Compose integration (optional if using Compose)
     implementation("io.insert-koin:koin-androidx-compose:3.5.3")
+
+    implementation(libs.accompanist.placeholder.material) // Check latest version
+
 
     implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.messaging)

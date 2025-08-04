@@ -12,6 +12,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
+import androidx.core.view.isVisible
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
 import com.example.bachelors.R
@@ -31,7 +32,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
-        WindowCompat.setDecorFitsSystemWindows(window, true)
+        WindowCompat.setDecorFitsSystemWindows(window, false)
         installSplashScreen()/*.setKeepOnScreenCondition{
             !viewModel.isFetchDone.value
         }
@@ -50,6 +51,14 @@ class MainActivity : AppCompatActivity() {
             view.setPadding(0, 0, 0, 0) // remove padding if any
             insets // return the original insets if you want default behavior
         }
+
+        navController.addOnDestinationChangedListener{ _, destination, _ ->
+            when(destination.id){
+                R.id.historyDetailsFragment -> findViewById<BottomNavigationView>(R.id.bottom_navigation_bar).isVisible = false
+                else -> findViewById<BottomNavigationView>(R.id.bottom_navigation_bar).isVisible = true
+            }
+        }
+
         checkNotificationPermission()
         firebaseNotificationSubscribeTopic()
     }
@@ -100,7 +109,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 }
-
 
 /*
 🧠 Core Difference
