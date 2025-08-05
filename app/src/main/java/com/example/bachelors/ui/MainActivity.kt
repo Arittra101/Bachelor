@@ -5,7 +5,6 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.ViewCompat
-import androidx.core.view.WindowCompat
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
@@ -38,6 +37,8 @@ class MainActivity : AppCompatActivity() {
         val bottomNavigationView = binding.bottomNavigationBar
         NavigationUI.setupWithNavController(bottomNavigationView, navController)
 
+        reduceBottomBarHeight(binding.bottomNavigationBar)
+
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
                 R.id.historyDetailsFragment -> isVisibleBottomBar(false)
@@ -50,28 +51,11 @@ class MainActivity : AppCompatActivity() {
     private fun isVisibleBottomBar(isVisible: Boolean) {
         binding.bottomNavigationBar.isVisible = isVisible
     }
+
+    private fun reduceBottomBarHeight(bottomNavigationView: BottomNavigationView) {
+        ViewCompat.setOnApplyWindowInsetsListener(bottomNavigationView) { view, insets ->
+            view.setPadding(0, 0, 0, 0) // remove padding if any
+            insets // return the original insets if you want default behavior
+        }
+    }
 }
-
-
-/*
-🧠 Core Difference
-Aspect	fragment.findNavController()	activity.findFragmentById(...).navController
-📍 Where it's used	Inside a fragment	Inside an activity
-🔍 How it finds NavController	Automatically walks up to find the nearest NavHostFragment	Manually finds the NavHostFragment using ID
-✅ When to use	When you already have a Fragment and want to navigate from it	When you're in the Activity and need global access to NavController
-🧩 Simpler for	Reusable utility functions inside fragments	App-level setup like setupWithNavController()
-
-
-
-
- This connects the BottomNavigationView with the NavController
-NavigationUI.setupWithNavController(bottomNavigationView, navController)
-  val navHostFragment = supportFragmentManager.findFragmentById(R.id.fragmentContainerView) as NavHostFragment
-   val navController: NavController = navHostFragment.navController
-      val navInflater: NavInflater = navController.navInflater
-       val navGraph: NavGraph = navInflater.inflate(R.navigation.nav_graph)
-     navGraph.setStartDestination(R.id.blankFragment)
-
-
-        navController.graph = navGraph
-*/
