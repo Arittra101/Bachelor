@@ -1,6 +1,7 @@
 package com.example.bachelors.features.history.ui
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import androidx.fragment.app.Fragment
 import android.view.View
@@ -29,5 +30,10 @@ class HistoryFragment : Fragment() {
             }
         }
 
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        Log.wtf("cv","destroy")
     }
 }

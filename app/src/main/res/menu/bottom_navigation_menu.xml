@@ -1,11 +1,11 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/nav_home"
+        android:id="@+id/homeFragment"
         android:enabled="true"
         android:icon="@drawable/img1"
         android:title="Home"/>
     <item
-        android:id="@+id/nav_date"
+        android:id="@+id/historyFragment"
         android:enabled="true"
         android:icon="@drawable/date"
         android:title="date"/>
