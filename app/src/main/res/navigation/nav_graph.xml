@@ -3,19 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/loginFragment">
-
-    <fragment
-        android:id="@+id/loginFragment"
-        android:name="com.example.bachelors.features.authentication.login.LoginFragment"
-        android:label="Login" />
-
+    app:startDestination="@id/homeFragment">
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.example.bachelors.ui.HomeFragment"
         android:label="fragment_home_activity"
         tools:layout="@layout/fragment_home_activity" />
-
     <fragment
         android:id="@+id/historyFragment"
         android:name="com.example.bachelors.features.history.ui.HistoryFragment"

@@ -9,7 +9,8 @@ data class LoginUiState(
     val username: String = "",
     val password: String = "",
     val isLoggedIn: Boolean = false,
-    val errorMessage: String? = null
+    val errorMessage: String? = null,
+    val authorized : Boolean ? = true
 )
 
 class LoginViewModel : ViewModel() {
@@ -33,4 +34,19 @@ class LoginViewModel : ViewModel() {
             _uiState.update { it.copy(errorMessage = "Invalid credentials") }
         }
     }
+
+    fun handleEvent(event: LogInEvent){
+        when(event){
+            LogInEvent.logIn -> {
+                _uiState.value = LoginUiState(username = "a", password = "123", isLoggedIn = true, authorized = true)
+            }
+            else -> return
+        }
+    }
+
+
+}
+
+sealed class LogInEvent(){
+    data object logIn : LogInEvent()
 }

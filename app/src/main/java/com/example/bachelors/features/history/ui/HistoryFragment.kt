@@ -22,7 +22,6 @@ class HistoryFragment : Fragment() {
     ): View {
         return ComposeView(requireContext()).apply {
             setContent {
-
                 val navController = findNavController()
                 MyAppTheme() {
                     MonthHistoryScreenRoute(navController)

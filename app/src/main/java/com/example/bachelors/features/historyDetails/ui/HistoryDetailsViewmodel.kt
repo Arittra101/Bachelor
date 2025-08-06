@@ -74,19 +74,3 @@ sealed class HistoryDetailsMealUiEffect() {
 sealed class HistoryDetailsEvent() {
     data class Trigger(var page: Int) : HistoryDetailsEvent()
 }
-//Meal Expenses
-//data class HistoryDetailsExpensesState(
-//    val expensesHistories: List<ExpensesMealsHistories>? = null,
-//    val isLoading: Boolean = true
-//)
-//sealed class HistoryDetailsExpensesUiEffect(){
-//    data class ShowError(val message: String) : HistoryDetailsMealUiEffect()
-//    data class ShowSuccess(val message: String) : HistoryDetailsMealUiEffect()
-//}
-//
-//sealed class HistoryDetailsState(){
-//    data object List<ExpensesMealsHistories>: HistoryDetailsState()
-//    data object Loading : HistoryDetailsState()
-//    data class Success(val data: List<Any> = emptyList()) : HistoryDetailsState()
-//    data class Error(val message: String) : HistoryDetailsState()
-//}
