@@ -9,6 +9,7 @@ import androidx.core.view.isVisible
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
 import com.example.bachelors.R
+import com.example.bachelors.core.common.navigateRoot
 import com.example.bachelors.databinding.ActivityMainBinding
 import com.example.bachelors.features.common.MainViewmodel
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -43,6 +44,23 @@ class MainActivity : AppCompatActivity() {
             when (destination.id) {
                 R.id.historyDetailsFragment -> isVisibleBottomBar(false)
                 else -> isVisibleBottomBar(true)
+            }
+        }
+
+        binding.bottomNavigationBar.setOnItemSelectedListener { item ->
+
+            when (item.itemId) {
+                R.id.historyFragment -> {
+                    navController.navigateRoot(R.id.historyFragment)
+                    true
+                }
+
+                R.id.homeFragment -> {
+                    navController.navigateRoot(R.id.homeFragment)
+                    true
+                }
+
+                else -> false
             }
         }
 

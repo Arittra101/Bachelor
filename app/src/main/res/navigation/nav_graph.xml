@@ -8,17 +8,16 @@
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.example.bachelors.features.authentication.login.LoginFragment"
-        android:label="Login"
-        tools:layout="@layout/fragment_placeholder" />
+        android:label="Login" />
 
     <fragment
-        android:id="@+id/nav_home"
+        android:id="@+id/homeFragment"
         android:name="com.example.bachelors.ui.HomeFragment"
         android:label="fragment_home_activity"
         tools:layout="@layout/fragment_home_activity" />
 
     <fragment
-        android:id="@+id/nav_date"
+        android:id="@+id/historyFragment"
         android:name="com.example.bachelors.features.history.ui.HistoryFragment"
         android:label="BlankFragment" />
     <fragment
@@ -26,5 +25,4 @@
         android:name="com.example.bachelors.features.historyDetails.ui.HistoryDetailsFragment"
         android:label="fragment_history_details"
         tools:layout="@layout/fragment_history_details" />
-        android:label="HistoryFragment" />
 </navigation>

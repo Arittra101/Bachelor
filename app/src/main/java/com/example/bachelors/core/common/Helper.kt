@@ -1,6 +1,7 @@
 package com.example.bachelors.core.common
 
 import androidx.compose.ui.Modifier
+import androidx.navigation.NavController
 
 inline fun Modifier.conditional(
     isTopLevelScreen: Boolean,

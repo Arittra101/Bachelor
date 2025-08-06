@@ -25,7 +25,7 @@ class LoginFragment : Fragment() {
                 LoginScreen(
                     viewModel = viewModel,
                     onLoginSuccess = {
-                        findNavController().navigate(R.id.nav_home)
+                        findNavController().navigate(R.id.homeFragment)
                     }
                 )
             }
