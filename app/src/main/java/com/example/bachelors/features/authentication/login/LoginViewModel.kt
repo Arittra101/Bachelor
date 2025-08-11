@@ -1,14 +1,20 @@
 package com.example.bachelors.features.authentication.login
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.example.bachelors.core.common.domain.usecase.LoginUseCase
+import com.example.bachelors.features.common.manager.ToastManager
+import com.example.bachelors.features.common.model.ToastType
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 
 data class LoginUiState(
     val username: String = "",
     val password: String = "",
     val isLoggedIn: Boolean = false,
+    val isLoading: Boolean = false,
     val errorMessage: String? = null,
     val authorized: Boolean? = false,
     val emailError: String? = null,
@@ -16,12 +22,12 @@ data class LoginUiState(
     val isPasswordVisible: Boolean = false
 )
 
-class LoginViewModel : ViewModel() {
+class LoginViewModel(private val loginUseCase: LoginUseCase) : ViewModel() {
 
     private val _uiState = MutableStateFlow(LoginUiState())
     val uiState: StateFlow<LoginUiState> = _uiState
 
-    fun onUsernameChanged(value: String) {
+    private fun onUsernameChanged(value: String) {
         _uiState.update { state ->
             val emailError = when {
                 value.isBlank() -> "Email is required"
@@ -34,7 +40,7 @@ class LoginViewModel : ViewModel() {
         }
     }
 
-    fun onPasswordChanged(value: String) {
+    private fun onPasswordChanged(value: String) {
         _uiState.update { state ->
             val passwordError = when {
                 value.isBlank() -> "Password is required"
@@ -51,32 +57,36 @@ class LoginViewModel : ViewModel() {
 
     private fun validateFields(): Boolean {
         val state = _uiState.value
-        return state.emailError == null &&
-                state.passwordError == null &&
-                state.username.isNotBlank() &&
-                state.password.isNotBlank()
+        return state.emailError == null && state.passwordError == null && state.username.isNotBlank() && state.password.isNotBlank()
     }
 
     private fun login() {
         if (!validateFields()) return
-        val success = _uiState.value.username == "admin@gmail.com" &&
-                _uiState.value.password == "123456"
-
-        _uiState.update {
-            it.copy(
-                isLoggedIn = success,
-                errorMessage = if (success) null else "Invalid username or password"
-            )
+        viewModelScope.launch {
+            _uiState.update { it.copy(isLoading = true, errorMessage = null) }
+            val result = loginUseCase(_uiState.value.username, _uiState.value.password)
+            result.fold(onSuccess = {
+                _uiState.update { it.copy(isLoggedIn = true, isLoading = false) }
+            }, onFailure = { error ->
+                _uiState.update {
+                    it.copy(errorMessage = error.message, isLoading = false)
+                }
+                showErrorToast(error.message.toString())
+            })
         }
     }
 
-    fun clearError() {
-        _uiState.update { it.copy(errorMessage = null) }
+    private fun showErrorToast(message: String) {
+        viewModelScope.launch {
+            ToastManager.show(message, ToastType.ERROR)
+        }
     }
 
     fun handleEvent(event: LogInEvent) {
         when (event) {
-            LogInEvent.LogIn -> login()
+            is LogInEvent.LogIn -> login()
+            is LogInEvent.UsernameChanged -> onUsernameChanged(event.value)
+            is LogInEvent.PasswordChanged -> onPasswordChanged(event.value)
             LogInEvent.TogglePasswordVisibility -> togglePasswordVisibility()
         }
     }
@@ -84,5 +94,7 @@ class LoginViewModel : ViewModel() {
 
 sealed class LogInEvent {
     data object LogIn : LogInEvent()
+    data class UsernameChanged(val value: String) : LogInEvent()
+    data class PasswordChanged(val value: String) : LogInEvent()
     data object TogglePasswordVisibility : LogInEvent()
 }

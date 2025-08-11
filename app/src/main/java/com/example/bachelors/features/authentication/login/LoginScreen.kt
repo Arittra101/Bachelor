@@ -1,8 +1,8 @@
 import android.content.Intent
-import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -54,13 +54,6 @@ fun LogInScreenRoute(viewModel: LoginViewModel = koinViewModel()) {
     val event = viewModel::handleEvent
     val context = LocalContext.current
 
-
-    state.errorMessage?.let {
-        Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
-        viewModel.clearError()
-    }
-
-
     if (state.isLoggedIn || (state.authorized == true)) {
         val intent = Intent(context, MainActivity::class.java).apply {
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
@@ -68,13 +61,26 @@ fun LogInScreenRoute(viewModel: LoginViewModel = koinViewModel()) {
         context.startActivity(intent)
 
     } else {
-        LoginScreen(viewModel, state, event)
+        Box(modifier = Modifier.fillMaxSize()) {
+            LoginScreen(state, event)
+            if (state.isLoading) {
+                Box(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .background(Color.Black.copy(alpha = 0.5f)),
+                    contentAlignment = Alignment.Center
+                ) {
+                    androidx.compose.material3.CircularProgressIndicator(
+                        color = MaterialTheme.colorScheme.primary
+                    )
+                }
+            }
+        }
     }
 }
 
 @Composable
 fun LoginScreen(
-    viewModel: LoginViewModel,
     state: LoginUiState,
     onEvent: (event: LogInEvent) -> Unit
 ) {
@@ -115,7 +121,7 @@ fun LoginScreen(
             Spacer(modifier = Modifier.height(8.dp))
             OutlinedTextField(
                 value = state.username,
-                onValueChange = { viewModel.onUsernameChanged(it) },
+                onValueChange = { onEvent(LogInEvent.UsernameChanged(it)) },
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(vertical = 8.dp),
@@ -152,7 +158,7 @@ fun LoginScreen(
             Spacer(modifier = Modifier.height(8.dp))
             OutlinedTextField(
                 value = state.password,
-                onValueChange = { viewModel.onPasswordChanged(it) },
+                onValueChange = { onEvent(LogInEvent.PasswordChanged(it)) },
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(vertical = 8.dp),
