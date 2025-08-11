@@ -20,6 +20,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.example.bachelors.core.common.conditional
 import kotlinx.coroutines.delay
@@ -33,6 +34,7 @@ fun BaseScreen(
     zeroBottomPadding: Boolean = false,
     showBackButton: Boolean = true,
     onBackPress: (() -> Unit)? = null,
+    backgroundColor: Color = MaterialTheme.colorScheme.primary,
     topBarContent: (@Composable () -> Unit)? = null,
     content: @Composable (PaddingValues) -> Unit
 ) {
@@ -51,7 +53,7 @@ fun BaseScreen(
         Box(
             modifier = Modifier
                 .fillMaxSize()
-                .background(color = MaterialTheme.colorScheme.primary)
+                .background(color = backgroundColor)
                 .padding(innerPadding)
                 .conditional(
                     isTopLevelScreen = isTopLevelScreen,

@@ -9,8 +9,10 @@ data class LoginUiState(
     val username: String = "",
     val password: String = "",
     val isLoggedIn: Boolean = false,
-    val errorMessage: String? = null,
-    val authorized : Boolean ? = true
+    val errorMessage: String? = null, // For login error (toast)
+    val authorized: Boolean? = false,
+    val emailError: String? = null,
+    val passwordError: String? = null
 )
 
 class LoginViewModel : ViewModel() {
@@ -20,26 +22,64 @@ class LoginViewModel : ViewModel() {
 
     fun onUsernameChanged(value: String) {
         _uiState.update { it.copy(username = value) }
+        validateEmail()
     }
 
     fun onPasswordChanged(value: String) {
         _uiState.update { it.copy(password = value) }
+        validatePassword()
     }
 
-    fun login() {
-        val currentState = _uiState.value
-        if (currentState.username == "admin" && currentState.password == "admin") {
-            _uiState.update { it.copy(isLoggedIn = true, errorMessage = null) }
-        } else {
-            _uiState.update { it.copy(errorMessage = "Invalid credentials") }
+    private fun validateEmail() {
+        var emailError: String? = null
+        if (_uiState.value.username.isBlank()) {
+            emailError = "Email is required"
+        } else if (!android.util.Patterns.EMAIL_ADDRESS.matcher(_uiState.value.username)
+                .matches()
+        ) {
+            emailError = "Invalid email address"
         }
+        _uiState.update { it.copy(emailError = emailError) }
     }
 
-    fun handleEvent(event: LogInEvent){
-        when(event){
+    private fun validatePassword() {
+        var passwordError: String? = null
+        if (_uiState.value.password.isBlank()) {
+            passwordError = "Password is required"
+        } else if (_uiState.value.password.length < 6) {
+            passwordError = "Password must be at least 6 characters"
+        }
+        _uiState.update { it.copy(passwordError = passwordError) }
+    }
+
+    private fun validateFields(): Boolean {
+        return _uiState.value.emailError == null &&
+                _uiState.value.passwordError == null &&
+                _uiState.value.password.isNotBlank() &&
+                _uiState.value.username.isNotBlank()
+    }
+
+    private fun login() {
+        if (!validateFields()) return
+        var errorMessage: String? = null
+        val currentState = _uiState.value
+        if (currentState.username == "admin@gmail.com" && currentState.password == "123456") {
+            _uiState.update { it.copy(isLoggedIn = true) }
+        } else {
+            errorMessage = "Invalid username or password"
+        }
+        _uiState.update { it.copy(errorMessage = errorMessage) }
+    }
+    fun clearError() {
+        _uiState.update { it.copy(errorMessage = null) }
+    }
+
+    fun handleEvent(event: LogInEvent) {
+        when (event) {
             LogInEvent.logIn -> {
-                _uiState.value = LoginUiState(username = "a", password = "123", isLoggedIn = true, authorized = true)
+                login()
             }
+
             else -> return
         }
     }
@@ -47,6 +87,6 @@ class LoginViewModel : ViewModel() {
 
 }
 
-sealed class LogInEvent(){
+sealed class LogInEvent() {
     data object logIn : LogInEvent()
 }
