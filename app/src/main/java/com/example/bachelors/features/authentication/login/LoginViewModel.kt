@@ -9,10 +9,11 @@ data class LoginUiState(
     val username: String = "",
     val password: String = "",
     val isLoggedIn: Boolean = false,
-    val errorMessage: String? = null, // For login error (toast)
+    val errorMessage: String? = null,
     val authorized: Boolean? = false,
     val emailError: String? = null,
-    val passwordError: String? = null
+    val passwordError: String? = null,
+    val isPasswordVisible: Boolean = false
 )
 
 class LoginViewModel : ViewModel() {
@@ -21,72 +22,67 @@ class LoginViewModel : ViewModel() {
     val uiState: StateFlow<LoginUiState> = _uiState
 
     fun onUsernameChanged(value: String) {
-        _uiState.update { it.copy(username = value) }
-        validateEmail()
+        _uiState.update { state ->
+            val emailError = when {
+                value.isBlank() -> "Email is required"
+                !android.util.Patterns.EMAIL_ADDRESS.matcher(value)
+                    .matches() -> "Invalid email address"
+
+                else -> null
+            }
+            state.copy(username = value, emailError = emailError)
+        }
     }
 
     fun onPasswordChanged(value: String) {
-        _uiState.update { it.copy(password = value) }
-        validatePassword()
+        _uiState.update { state ->
+            val passwordError = when {
+                value.isBlank() -> "Password is required"
+                value.length < 6 -> "Password must be at least 6 characters"
+                else -> null
+            }
+            state.copy(password = value, passwordError = passwordError)
+        }
     }
 
-    private fun validateEmail() {
-        var emailError: String? = null
-        if (_uiState.value.username.isBlank()) {
-            emailError = "Email is required"
-        } else if (!android.util.Patterns.EMAIL_ADDRESS.matcher(_uiState.value.username)
-                .matches()
-        ) {
-            emailError = "Invalid email address"
-        }
-        _uiState.update { it.copy(emailError = emailError) }
-    }
-
-    private fun validatePassword() {
-        var passwordError: String? = null
-        if (_uiState.value.password.isBlank()) {
-            passwordError = "Password is required"
-        } else if (_uiState.value.password.length < 6) {
-            passwordError = "Password must be at least 6 characters"
-        }
-        _uiState.update { it.copy(passwordError = passwordError) }
+    private fun togglePasswordVisibility() {
+        _uiState.update { it.copy(isPasswordVisible = !it.isPasswordVisible) }
     }
 
     private fun validateFields(): Boolean {
-        return _uiState.value.emailError == null &&
-                _uiState.value.passwordError == null &&
-                _uiState.value.password.isNotBlank() &&
-                _uiState.value.username.isNotBlank()
+        val state = _uiState.value
+        return state.emailError == null &&
+                state.passwordError == null &&
+                state.username.isNotBlank() &&
+                state.password.isNotBlank()
     }
 
     private fun login() {
         if (!validateFields()) return
-        var errorMessage: String? = null
-        val currentState = _uiState.value
-        if (currentState.username == "admin@gmail.com" && currentState.password == "123456") {
-            _uiState.update { it.copy(isLoggedIn = true) }
-        } else {
-            errorMessage = "Invalid username or password"
+        val success = _uiState.value.username == "admin@gmail.com" &&
+                _uiState.value.password == "123456"
+
+        _uiState.update {
+            it.copy(
+                isLoggedIn = success,
+                errorMessage = if (success) null else "Invalid username or password"
+            )
         }
-        _uiState.update { it.copy(errorMessage = errorMessage) }
     }
+
     fun clearError() {
         _uiState.update { it.copy(errorMessage = null) }
     }
 
     fun handleEvent(event: LogInEvent) {
         when (event) {
-            LogInEvent.logIn -> {
-                login()
-            }
-
-            else -> return
+            LogInEvent.LogIn -> login()
+            LogInEvent.TogglePasswordVisibility -> togglePasswordVisibility()
         }
     }
-
-
 }
 
-sealed class LogInEvent() {
-    data object logIn : LogInEvent()
+sealed class LogInEvent {
+    data object LogIn : LogInEvent()
+    data object TogglePasswordVisibility : LogInEvent()
 }

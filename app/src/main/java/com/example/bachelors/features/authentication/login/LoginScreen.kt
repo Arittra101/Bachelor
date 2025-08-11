@@ -1,9 +1,7 @@
-import android.content.Context
 import android.content.Intent
 import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -21,17 +19,15 @@ import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material3.Button
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -58,12 +54,12 @@ fun LogInScreenRoute(viewModel: LoginViewModel = koinViewModel()) {
     val event = viewModel::handleEvent
     val context = LocalContext.current
 
-    LaunchedEffect(state.errorMessage) {
-        state.errorMessage?.let {
-            Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
-            viewModel.clearError()
-        }
+
+    state.errorMessage?.let {
+        Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
+        viewModel.clearError()
     }
+
 
     if (state.isLoggedIn || (state.authorized == true)) {
         val intent = Intent(context, MainActivity::class.java).apply {
@@ -72,20 +68,16 @@ fun LogInScreenRoute(viewModel: LoginViewModel = koinViewModel()) {
         context.startActivity(intent)
 
     } else {
-        LoginScreen(context, viewModel, state, event)
+        LoginScreen(viewModel, state, event)
     }
 }
 
 @Composable
 fun LoginScreen(
-    context: Context,
     viewModel: LoginViewModel,
     state: LoginUiState,
     onEvent: (event: LogInEvent) -> Unit
 ) {
-
-    var passwordVisible by remember { mutableStateOf(false) }
-
 
     BaseScreen(backgroundColor = Color.White) {
         Column(
@@ -178,17 +170,23 @@ fun LoginScreen(
                     )
                 },
                 trailingIcon = {
-                    val image = if (passwordVisible) Icons.Default.Visibility
-                    else Icons.Default.VisibilityOff
-                    Image(
-                        imageVector = image,
-                        contentDescription = if (passwordVisible) "Hide password" else "Show password",
-                        modifier = Modifier
-                            .size(24.dp)
-                            .clickable { passwordVisible = !passwordVisible })
+                    IconButton(onClick = { onEvent(LogInEvent.TogglePasswordVisibility) }) {
+                        val image = if (state.isPasswordVisible) {
+                            Icons.Default.Visibility
+                        } else {
+                            Icons.Default.VisibilityOff
+                        }
+                        Icon(
+                            imageVector = image,
+                            contentDescription =
+                                if (state.isPasswordVisible) "Hide password"
+                                else "Show password"
+                        )
+                    }
                 },
-                visualTransformation = if (passwordVisible) VisualTransformation.None
-                else PasswordVisualTransformation(),
+                visualTransformation =
+                    if (state.isPasswordVisible) VisualTransformation.None
+                    else PasswordVisualTransformation(),
                 isError = state.passwordError != null
             )
             if (state.passwordError != null) {
@@ -222,7 +220,7 @@ fun LoginScreen(
                         color = MaterialTheme.colorScheme.primary, shape = RoundedCornerShape(8.dp)
                     ),
                 onClick = {
-                    onEvent.invoke(LogInEvent.logIn)
+                    onEvent.invoke(LogInEvent.LogIn)
                 },
             ) {
                 Text("Sign In", fontSize = 18.sp, color = Color.White)
