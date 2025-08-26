@@ -24,6 +24,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.bachelors.authsdk.AuthSDK
 import com.example.bachelors.R
 import com.example.bachelors.features.authentication.login.LogInEvent
 import com.example.bachelors.features.authentication.login.LoginUiState
@@ -48,6 +49,15 @@ fun LogInScreenRoute(viewModel: LoginViewModel = koinViewModel()) {
     } else {
         LoginScreen(context, viewModel, state, event)
     }
+
+    val authSdk = AuthSDK.getInstance()
+//    sdk init
+    authSdk.initSDK(context,null)
+    viewModel.signIn(authSdk)
+
+
+
+
 }
 
 @Composable
