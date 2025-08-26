@@ -79,6 +79,9 @@ dependencies {
     // Material (redundant, already declared)
     implementation("com.google.android.material:material:1.5.0")
 
+    // Material Icons extended
+    implementation(libs.androidx.material.icons.extended)
+
     // Koin
     implementation("io.insert-koin:koin-android:3.5.3")
     implementation("io.insert-koin:koin-androidx-compose:3.5.3")

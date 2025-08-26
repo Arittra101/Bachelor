@@ -2,7 +2,11 @@ package com.example.bachelors
 
 import com.bachelors.authsdk.AuthSDK
 import com.example.bachelors.core.common.data.HomeHistoryRepositoryImp
+import com.example.bachelors.core.common.data.remote.apiservice.AuthApiService
+import com.example.bachelors.core.common.data.repository.AuthRepositoryImpl
+import com.example.bachelors.core.common.domain.repository.AuthRepository
 import com.example.bachelors.core.common.domain.repository.HomeHistoryRepository
+import com.example.bachelors.core.common.domain.usecase.LoginUseCase
 import com.example.bachelors.core.common.network.HomeHistoryService
 import com.example.bachelors.features.authentication.login.LoginViewModel
 import com.example.bachelors.features.common.HomeHistoryViewModel
@@ -31,18 +35,25 @@ val appModule = module {
     factory { provideApiService(get(named("AppRetrofit"))) }
     //create  History service api instance
     factory { provideHistoryDetailsApiService(get()) }
+    //create auth service api instance
+    factory { provideAuthApiService(get<Retrofit>()) }
 
 
     //create repository instance
     single<HomeHistoryRepository> { HomeHistoryRepositoryImp(get()) }
     //create HistoryDetailsRepo instance
-    single<HistoryDetailsRepo>{ HistoryDetailsRepoImpl(get()) }
+    single<HistoryDetailsRepo> { HistoryDetailsRepoImpl(get()) }
+    //create AuthRepo instance
+    single<AuthRepository> { AuthRepositoryImpl(get<AuthApiService>()) }
+
+    //create LoginUseCase instance
+    single<LoginUseCase> { LoginUseCase(get<AuthRepository>()) }
 
 
     //create viewmodel instance
     viewModel { HomeHistoryViewModel(get()) }
     viewModel { MainViewmodel(get()) }
-    viewModel { LoginViewModel() }
+    viewModel { LoginViewModel(get<LoginUseCase>()) }
     viewModel { HistoryDetailsViewmodel(get()) }
 
 }
@@ -54,6 +65,9 @@ fun provideApiService(retrofit: Retrofit): HomeHistoryService =
 
 fun provideHistoryDetailsApiService(retrofit: Retrofit): HistoryDetailsService =
     retrofit.create(HistoryDetailsService::class.java)
+
+fun provideAuthApiService(retrofit: Retrofit): AuthApiService =
+    retrofit.create(AuthApiService::class.java)
 
 fun provideRetrofit(): Retrofit = Retrofit.Builder()
     .baseUrl(BASE_URL_SCRIPT)

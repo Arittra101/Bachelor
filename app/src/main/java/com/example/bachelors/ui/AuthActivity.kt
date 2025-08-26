@@ -1,17 +1,12 @@
 package com.example.bachelors.ui
 
 import LogInScreenRoute
-import LoginScreen
 import android.os.Bundle
 import androidx.activity.compose.setContent
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.foundation.layout.Box
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import androidx.navigation.findNavController
-import com.example.bachelors.R
-import com.example.bachelors.ui.theme.MyAppTheme
+import com.example.bachelors.features.common.components.ToastHost
 
 class AuthActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -20,7 +15,10 @@ class AuthActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         setContent {
-            LogInScreenRoute()
+            Box {
+                LogInScreenRoute()
+                ToastHost()
+            }
         }
     }
 }
