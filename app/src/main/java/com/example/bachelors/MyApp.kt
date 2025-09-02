@@ -2,6 +2,7 @@ package com.example.bachelors
 
 import android.app.Application
 import com.bachelors.authsdk.appSdkModule
+//import com.bachelors.authsdk.appSdkModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.GlobalContext.startKoin
 

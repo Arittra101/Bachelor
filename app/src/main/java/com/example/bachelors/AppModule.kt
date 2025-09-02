@@ -1,6 +1,5 @@
 package com.example.bachelors
 
-import com.bachelors.authsdk.AuthSDK
 import com.example.bachelors.core.common.data.HomeHistoryRepositoryImp
 import com.example.bachelors.core.common.data.remote.apiservice.AuthApiService
 import com.example.bachelors.core.common.data.repository.AuthRepositoryImpl
@@ -58,7 +57,7 @@ val appModule = module {
 
 }
 
-fun authSdkIntance() = AuthSDK.getInstance()
+//fun authSdkIntance() = AuthSDK.getInstance()
 
 fun provideApiService(retrofit: Retrofit): HomeHistoryService =
     retrofit.create(HomeHistoryService::class.java)

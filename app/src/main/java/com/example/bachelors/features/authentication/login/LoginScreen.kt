@@ -40,6 +40,7 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.bachelors.authsdk.AuthSDK
+//import com.bachelors.authsdk.AuthSDK
 import com.example.bachelors.R
 import com.example.bachelors.features.authentication.login.LogInEvent
 import com.example.bachelors.features.authentication.login.LoginUiState

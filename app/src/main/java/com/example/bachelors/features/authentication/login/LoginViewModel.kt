@@ -8,12 +8,6 @@ import com.bachelors.authsdk.AuthSDK
 import com.bachelors.authsdk.callback.AuthSdkCallback
 import com.bachelors.authsdk.data.response.AuthError
 import com.bachelors.authsdk.data.response.AuthSuccessResult
-import androidx.lifecycle.viewModelScope
-import com.bachelors.authsdk.AuthSDK
-import com.bachelors.authsdk.callback.AuthSdkCallback
-import com.bachelors.authsdk.data.response.AuthError
-import com.bachelors.authsdk.data.response.AuthSuccessResult
-import androidx.lifecycle.viewModelScope
 import com.example.bachelors.core.common.domain.usecase.LoginUseCase
 import com.example.bachelors.features.common.manager.ToastManager
 import com.example.bachelors.features.common.model.ToastType
