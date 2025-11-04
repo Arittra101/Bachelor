@@ -21,3 +21,11 @@ local.properties
 /.idea/vcs.xml
 .idea/gradle.xml
 .idea/misc.xml
+/.idea/copilot.data.migration.ask2agent.xml
+/.idea/copilot.data.migration.edit.xml
+/.idea/codeStyles/codeStyleConfig.xml
+/.idea/inspectionProfiles/Project_Default.xml
+/.idea/copilot.data.migration.ask.xml
+/.idea/deviceManager.xml
+/.idea/codeStyles/Project.xml
+/.idea/copilot.data.migration.agent.xml
